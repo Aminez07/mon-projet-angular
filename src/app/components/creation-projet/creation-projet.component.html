@@ -1,0 +1,44 @@
+<div class="create-project-container">
+  <!-- En-tête -->
+  <div class="header">
+    <img src="assets/logo.png" alt="ProjectCollab Logo" class="logo" />
+    <h2>Créer un nouveau projet</h2>
+    <div class="actions">
+      <button class="save-button" (click)="saveProject()">Enregistrer</button>
+      <button class="cancel-button" (click)="cancel()">Annuler</button>
+    </div>
+  </div>
+
+  <!-- Formulaire -->
+  <form class="project-form">
+    <!-- Nom et description -->
+    <div class="input-group">
+      <label for="project-name">Nom du projet</label>
+      <input type="text" id="project-name" [(ngModel)]="projectName" placeholder="Entrer le nom du projet" required />
+    </div>
+
+    <div class="input-group">
+      <label for="project-description">Description du projet</label>
+      <textarea id="project-description" [(ngModel)]="projectDescription" placeholder="Description" required></textarea>
+    </div>
+
+    <!-- Dates -->
+    <div class="date-group">
+      <div class="input-group">
+        <label for="start-date">Date de début</label>
+        <input type="date" id="start-date" [(ngModel)]="startDate" required />
+      </div>
+
+      <div class="input-group">
+        <label for="end-date">Date d'échéance</label>
+        <input type="date" id="end-date" [(ngModel)]="endDate" required />
+      </div>
+    </div>
+
+    <!-- Ajout des membres -->
+    <div class="input-group">
+      <label for="add-members">Ajout des membres</label>
+      <input type="text" id="add-members" [(ngModel)]="members" placeholder="Ajouter des membres" />
+    </div>
+  </form>
+</div>

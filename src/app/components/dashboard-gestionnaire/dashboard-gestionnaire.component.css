@@ -1,0 +1,129 @@
+/* Conteneur principal */
+.dashboard-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+/* Barre latérale */
+.sidebar {
+  width: 20%;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Profil utilisateur */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.role {
+  font-size: 14px;
+  color: gray;
+}
+
+.profile-button {
+  background-color: #ffd700;
+  color: black;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Boutons de gestion des projets */
+.project-actions h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.action-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.action-button:nth-child(2) {
+  background-color: #90ee90;
+}
+
+.action-button:nth-child(3) {
+  background-color: #87cefa;
+}
+
+.action-button:nth-child(4) {
+  background-color: #ffcc00;
+}
+
+/* Section des projets */
+.projects-section {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.project-card {
+  background-color: #f5f5ff;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.project-name {
+  font-weight: bold;
+}
+
+.progress-chart {
+  width: 30px;
+  height: 30px;
+  background-color: yellow;
+  border-radius: 50%;
+}
+
+/* Bouton Déconnexion */
+.logout-button {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}

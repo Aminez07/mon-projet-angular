@@ -1,0 +1,42 @@
+<div class="detail-container">
+  <!-- En-tête avec logo et bouton retour -->
+  <div class="header">
+    <img src="assets/logo.png" alt="ProjectCollab Logo" class="logo" />
+    <button class="btn-back" (click)="goToDashboard()">Tableau de Bord</button>
+  </div>
+
+  <!-- Conteneur principal -->
+  <div class="content">
+    <!-- Filtres -->
+    <div class="filters">
+      <h3>Filtres</h3>
+      <label><input type="radio" name="filter" value="prioritaire" /> Prioritaire</label>
+      <label><input type="radio" name="filter" value="semaine" /> À rendre cette semaine</label>
+      <label><input type="radio" name="filter" value="termine" /> Terminé</label>
+    </div>
+
+    <!-- Liste des tâches -->
+    <div class="tasks">
+      <div class="task-card high-priority">
+        <h4>Concevoir une nouvelle interface utilisateur</h4>
+        <p>Détails de la tâche concernant la conception d’une nouvelle interface utilisateur.</p>
+        <span class="due-date">Date d’échéance: 10/10/2023</span>
+        <span class="priority">Priorité: Haute</span>
+      </div>
+
+      <div class="task-card low-priority">
+        <h4>Tests utilisateur</h4>
+        <p>Mener des sessions de tests utilisateurs pour recueillir des commentaires.</p>
+        <span class="due-date">Date d’échéance: 15/10/2023</span>
+        <span class="priority">Priorité: Basse</span>
+      </div>
+
+      <div class="task-card medium-priority">
+        <h4>Intégration Backend</h4>
+        <p>Intégrer les API backend aux composants frontend.</p>
+        <span class="due-date">Date d’échéance: 12/10/2023</span>
+        <span class="priority">Priorité: Moyenne</span>
+      </div>
+    </div>
+  </div>
+</div>

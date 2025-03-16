@@ -1,0 +1,38 @@
+<div class="dashboard-container">
+  <!-- Barre latérale avec profil -->
+  <div class="sidebar">
+    <div class="profile">
+      <img src="assets/avatar.png" alt="Avatar Membre" class="avatar">
+      <p class="username">Nom d'utilisateur</p>
+      <span class="role">Membre</span>
+      <button class="profile-button">Gérer le Profil</button>
+    </div>
+  </div>
+
+  <!-- Liste des projets -->
+  <div class="projects-section">
+    <h2>Projets :</h2>
+    <div class="projects-list">
+      <!-- Projet Alpha (En cours) -->
+      <div class="project-card in-progress">
+        <p class="project-name">Projet Alpha</p>
+        <span class="project-description">Résumé du projet.</span>
+        <p class="project-status">Statut: <span class="status-label in-progress">En cours</span></p>
+        <p class="task-count">Nombre de tâches: 3</p>
+        <button class="detail-button" (click)="goToDetailProjet('Projet Alpha')">Voir Détails</button>
+      </div>
+
+      <!-- Projet Beta (Terminé) -->
+      <div class="project-card completed">
+        <p class="project-name">Projet Beta</p>
+        <span class="project-description">Résumé du projet.</span>
+        <p class="project-status">Statut: <span class="status-label completed">Terminé</span></p>
+        <p class="task-count">Nombre de tâches: 5</p>
+        <button class="detail-button" (click)="goToDetailProjet('Projet Beta')">Voir Détails</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton Déconnexion -->
+  <button class="logout-button" (click)="logout()">Se Déconnecter</button>
+</div>

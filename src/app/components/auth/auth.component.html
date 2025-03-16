@@ -1,0 +1,31 @@
+<div class="auth-container">
+  <!-- Logo en haut à gauche -->
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="ProjectCollab Logo" class="logo" />
+  </div>
+
+  <!-- Formulaire de connexion -->
+  <div class="form-container">
+    <h1 class="title">Bienvenue sur ProjectCollab</h1>
+    <p class="subtitle">Veuillez vous connecter ou créer un compte.</p>
+
+    <form (submit)="onSubmit()" class="auth-form">
+      <div class="input-group">
+        <label for="email">Adresse courriel</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" required />
+      </div>
+
+      <button type="submit" class="login-button">Connexion</button>
+    </form>
+
+    <!-- Lien pour créer un compte -->
+    <div class="register-link">
+      <a (click)="onRegister()">Créer un compte</a>
+    </div>
+  </div>
+</div>
