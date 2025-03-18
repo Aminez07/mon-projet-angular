@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // ✅ Import FormsModule
-import { Router } from '@angular/router'; // Ajout du router pour la navigation
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service'; // ✅ Import du service
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-auth',
-  standalone: true, // ✅ Standalone Component
-  imports: [FormsModule], // ✅ Ajout du FormsModule ici
+  standalone: true,
+  imports: [FormsModule], // ✅ FormsModule doit être ajouté ici !
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
@@ -12,18 +14,23 @@ export class AuthComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {} // Injection du service Router
+  constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit() {
-    console.log('Connexion en cours...', this.email, this.password);
+    this.authService.login(this.email, this.password).subscribe((user) => {
+      if (user) {
+        localStorage.setItem('userRole', user.role); // 🔹 Stocke le rôle pour la redirection
+        alert('Connexion réussie !');
 
-    // Simuler une authentification
-    if (this.email === 'test@example.com' && this.password === 'password') {
-      alert('Connexion réussie ! Redirection en cours...');
-      this.router.navigate(['/dashboard']); // Redirection vers le tableau de bord
-    } else {
-      alert('Email ou mot de passe incorrect.');
-    }
+        if (user.role === 'gestionnaire') {
+          this.router.navigate(['/dashboard/gestionnaire']);
+        } else if (user.role === 'membre') {
+          this.router.navigate(['/dashboard/membre']);
+        }
+      } else {
+        alert('Email ou mot de passe incorrect.');
+      }
+    });
   }
 
   onRegister() {

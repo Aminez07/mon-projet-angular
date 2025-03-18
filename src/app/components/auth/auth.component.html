@@ -20,7 +20,8 @@
         <input type="password" id="password" [(ngModel)]="password" name="password" required />
       </div>
 
-      <button type="submit" class="login-button">Connexion</button>
+      <button class="login-button" (click)="onSubmit()">Connexion</button>
+
     </form>
 
     <!-- Lien pour créer un compte -->

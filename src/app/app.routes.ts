@@ -5,15 +5,15 @@ import { DashboardMembreComponent } from './components/dashboard-membre/dashboar
 import { DashboardGestionnaireComponent } from './components/dashboard-gestionnaire/dashboard-gestionnaire.component';
 import { DetailProjetMembreComponent } from './components/detail-projet-membre/detail-projet-membre.component';
 import { CreationProjetComponent } from './components/creation-projet/creation-projet.component'; // ✅ Ajouté
+import { AuthGuard } from './guards/auth.guard'; // ✅ Import du Guard
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard/membre', component: DashboardMembreComponent },
-  { path: 'dashboard/gestionnaire', component: DashboardGestionnaireComponent },
-  { path: 'dashboard/membre/detail-projet', component: DetailProjetMembreComponent }, // ✅ Correction du chemin
-  { path: 'creation-projet', component: CreationProjetComponent },
-
+  { path: 'dashboard/membre', component: DashboardMembreComponent, canActivate: [AuthGuard] }, // ✅ Protection
+  { path: 'dashboard/gestionnaire', component: DashboardGestionnaireComponent, canActivate: [AuthGuard] }, // ✅ Protection
+  { path: 'dashboard/membre/detail-projet', component: DetailProjetMembreComponent, canActivate: [AuthGuard] }, // ✅ Protection
+  { path: 'creation-projet', component: CreationProjetComponent, canActivate: [AuthGuard] }, // ✅ Protection
   { path: '**', redirectTo: 'auth' } // ✅ Ajout d'une redirection pour les routes inconnues
 ];
