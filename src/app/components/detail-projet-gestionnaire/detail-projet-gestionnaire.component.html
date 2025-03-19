@@ -1,0 +1,33 @@
+<div class="project-container">
+  <header>
+    <h2>{{ projectName }}</h2>
+    <p>Une description détaillée du projet décrivant ses objectifs.</p>
+    <button class="delete-button" (click)="deleteProject()">Supprimer le projet</button>
+    <button class="back-button" (click)="goToDashboard()">Tableau de bord</button>
+  </header>
+
+  <section class="team">
+    <h3>Équipe</h3>
+    <ul>
+      <li *ngFor="let member of members">{{ member }}</li>
+    </ul>
+  </section>
+
+  <section class="tasks">
+    <h3>Liste des tâches</h3>
+    <ul>
+      <li *ngFor="let task of tasks">
+        {{ task.name }} - Date: {{ task.dueDate }}
+        <button (click)="modifyTask(task)">Modifier</button>
+      </li>
+    </ul>
+    <button class="add-task" (click)="addTask()">Ajouter une nouvelle tâche</button>
+  </section>
+
+  <section class="progress">
+    <h3>Progrès du projet</h3>
+    <p>[Graphique ici]</p>
+  </section>
+
+  <button class="logout-button" (click)="logout()">Se Déconnecter</button>
+</div>

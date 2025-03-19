@@ -14,9 +14,13 @@ export class AuthService {
         users => {
           console.log('Données reçues de users.json :', users); // ✅ Debug
           const user = users.find(u => u.email === email && u.password === password);
+
           if (user) {
+            console.log('Utilisateur trouvé:', user); // ✅ Vérifie si l'utilisateur est trouvé
+            localStorage.setItem('userRole', user.role); // ✅ Stocke le rôle pour AuthGuard
             observer.next(user);
           } else {
+            console.warn('Aucun utilisateur trouvé avec cet email/mot de passe');
             observer.next(null);
           }
           observer.complete();
@@ -27,5 +31,9 @@ export class AuthService {
         }
       );
     });
+  }
+
+  logout() {
+    localStorage.removeItem('userRole');
   }
 }

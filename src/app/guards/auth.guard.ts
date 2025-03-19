@@ -8,12 +8,14 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
-    const role = localStorage.getItem('userRole'); // Vérifie si un rôle est défini
+    const role = localStorage.getItem('userRole');
+    console.log('AuthGuard - Rôle détecté:', role); // ✅ Debug pour voir si un rôle est détecté
 
     if (role) {
-      return true; // ✅ L'utilisateur est connecté
+      return true;
     } else {
-      this.router.navigate(['/auth']); // ❌ Redirection vers la page d'authentification
+      console.warn('AuthGuard - Aucun rôle détecté, redirection vers /auth');
+      this.router.navigate(['/auth']);
       return false;
     }
   }

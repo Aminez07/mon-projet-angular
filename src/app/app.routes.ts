@@ -4,16 +4,24 @@ import { RegisterComponent } from './components/register/register.component';
 import { DashboardMembreComponent } from './components/dashboard-membre/dashboard-membre.component';
 import { DashboardGestionnaireComponent } from './components/dashboard-gestionnaire/dashboard-gestionnaire.component';
 import { DetailProjetMembreComponent } from './components/detail-projet-membre/detail-projet-membre.component';
-import { CreationProjetComponent } from './components/creation-projet/creation-projet.component'; // ✅ Ajouté
+import { DetailProjetGestionnaireComponent } from './components/detail-projet-gestionnaire/detail-projet-gestionnaire.component';
+import { CreationProjetComponent } from './components/creation-projet/creation-projet.component';
 import { AuthGuard } from './guards/auth.guard'; // ✅ Import du Guard
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard/membre', component: DashboardMembreComponent, canActivate: [AuthGuard] }, // ✅ Protection
-  { path: 'dashboard/gestionnaire', component: DashboardGestionnaireComponent, canActivate: [AuthGuard] }, // ✅ Protection
-  { path: 'dashboard/membre/detail-projet', component: DetailProjetMembreComponent, canActivate: [AuthGuard] }, // ✅ Protection
-  { path: 'creation-projet', component: CreationProjetComponent, canActivate: [AuthGuard] }, // ✅ Protection
-  { path: '**', redirectTo: 'auth' } // ✅ Ajout d'une redirection pour les routes inconnues
+
+  // ✅ Routes protégées par AuthGuard pour les membres
+  { path: 'dashboard/membre', component: DashboardMembreComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/membre/detail-projet', component: DetailProjetMembreComponent, canActivate: [AuthGuard] }, // ✅ Correction avec paramètre ID
+
+  // ✅ Routes protégées par AuthGuard pour les gestionnaires
+  { path: 'dashboard/gestionnaire', component: DashboardGestionnaireComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/gestionnaire/detail-projet', component: DetailProjetGestionnaireComponent, canActivate: [AuthGuard] }, // ✅ Correction avec paramètre ID
+  { path: 'dashboard/gestionnaire/creation-projet', component: CreationProjetComponent, canActivate: [AuthGuard] },
+
+  // ✅ Redirection pour toute route inconnue
+  { path: '**', redirectTo: 'auth' }
 ];

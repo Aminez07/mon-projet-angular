@@ -5,17 +5,26 @@ import { Router } from '@angular/router';
   selector: 'app-dashboard-gestionnaire',
   standalone: true,
   templateUrl: './dashboard-gestionnaire.component.html',
-  styleUrl: './dashboard-gestionnaire.component.css'
+  styleUrls: ['./dashboard-gestionnaire.component.css']
 })
 export class DashboardGestionnaireComponent {
-  constructor(private router: Router) {} // ✅ Injection du router
+  constructor(private router: Router) {}
 
+  // Redirection vers la page de création de projet
   goToCreationProjet() {
-    this.router.navigate(['/creation-projet']); // ✅ Redirection vers la page de création de projet
+    console.log("Redirection vers la création de projet..."); // 🔍 Debug
+    this.router.navigate(['/dashboard/gestionnaire/creation-projet']);
   }
 
+  // Redirection vers la page détail du projet
+  goToDetailProjet(projectName: string) {
+    console.log('Redirection vers détail projet:', projectName); // ✅ Debug
+    this.router.navigate(['/dashboard/gestionnaire/detail-projet'], { queryParams: { projet: projectName } });
+  }
+
+  // Déconnexion
   logout() {
-    localStorage.removeItem('userRole'); // ✅ Supprime le rôle de l'utilisateur
-    this.router.navigate(['/auth']); // ✅ Redirige vers la page d'authentification
+    localStorage.removeItem('userRole');
+    this.router.navigate(['/auth']);
   }
 }

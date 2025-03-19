@@ -12,8 +12,10 @@ export class DashboardMembreComponent {
 
   // Redirection vers la page détail du projet avec un paramètre
   goToDetailProjet(projectName: string) {
-    this.router.navigate(['/detail-projet-membre'], { queryParams: { projet: projectName } });
+    console.log('Redirection vers détail projet:', projectName); // ✅ Debug pour voir si le clic fonctionne
+    this.router.navigate(['/dashboard/membre/detail-projet'], { queryParams: { projet: projectName } });
   }
+
   // deconexion
   logout() {
     localStorage.removeItem('userRole'); // Supprime le rôle de l'utilisateur

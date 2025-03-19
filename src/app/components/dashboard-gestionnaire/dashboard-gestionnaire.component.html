@@ -12,7 +12,6 @@
     <div class="project-actions">
       <h3>Gérer les projets</h3>
       <button class="action-button" (click)="goToCreationProjet()">Créer un nouveau projet</button>
-
       <button class="action-button">Suivre la progression</button>
       <button class="action-button">Inviter des membres</button>
     </div>
@@ -22,20 +21,24 @@
   <div class="projects-section">
     <h2>Projets :</h2>
     <div class="projects-list">
+      <!-- Projet Alpha -->
       <div class="project-card">
         <p class="project-name">Projet Alpha</p>
         <span class="project-description">Résumé du projet.</span>
         <div class="progress-chart"></div>
+        <button class="detail-button" (click)="goToDetailProjet('Projet Alpha')">Voir Détails</button>
       </div>
 
+      <!-- Projet Beta -->
       <div class="project-card">
         <p class="project-name">Projet Beta</p>
         <span class="project-description">Résumé du projet.</span>
         <div class="progress-chart"></div>
+        <button class="detail-button" (click)="goToDetailProjet('Projet Beta')">Voir Détails</button>
       </div>
     </div>
   </div>
 
   <!-- Bouton Déconnexion -->
-  <button class="logout-button">Se Déconnecter</button>
+  <button class="logout-button" (click)="logout()">Se Déconnecter</button>
 </div>
