@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // Importer Router pour la navigation
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail-projet-membre',
   standalone: true,
   templateUrl: './detail-projet-membre.component.html',
-  styleUrl: './detail-projet-membre.component.css'
+  styleUrls: ['./detail-projet-membre.component.css']
 })
 export class DetailProjetMembreComponent {
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) {} // Injection du service Router
+  // ✅ Redirection vers le détail de la tâche avec paramètre
+  goToDetailTache(taskName: string) {
+    console.log('Redirection vers la tâche :', taskName); // Debug
+    this.router.navigate(['/dashboard/membre/detail-tache'], { queryParams: { task: taskName } });
+  }
 
-  // Méthode pour retourner au tableau de bord
+  // ✅ Retour au tableau de bord
   goToDashboard() {
-    this.router.navigate(['/dashboard-membre']); // Redirige vers la page du tableau de bord membre
+    this.router.navigate(['/dashboard/membre']);
   }
 }

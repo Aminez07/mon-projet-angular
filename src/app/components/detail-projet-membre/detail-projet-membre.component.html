@@ -22,6 +22,9 @@
         <p>Détails de la tâche concernant la conception d’une nouvelle interface utilisateur.</p>
         <span class="due-date">Date d’échéance: 10/10/2023</span>
         <span class="priority">Priorité: Haute</span>
+        <button class="detail-button" (click)="goToDetailTache('Concevoir une nouvelle interface utilisateur')">
+          Voir Détails
+        </button>
       </div>
 
       <div class="task-card low-priority">
@@ -29,6 +32,9 @@
         <p>Mener des sessions de tests utilisateurs pour recueillir des commentaires.</p>
         <span class="due-date">Date d’échéance: 15/10/2023</span>
         <span class="priority">Priorité: Basse</span>
+        <button class="detail-button" (click)="goToDetailTache('Tests utilisateur')">
+          Voir Détails
+        </button>
       </div>
 
       <div class="task-card medium-priority">
@@ -36,6 +42,9 @@
         <p>Intégrer les API backend aux composants frontend.</p>
         <span class="due-date">Date d’échéance: 12/10/2023</span>
         <span class="priority">Priorité: Moyenne</span>
+        <button class="detail-button" (click)="goToDetailTache('Intégration Backend')">
+          Voir Détails
+        </button>
       </div>
     </div>
   </div>

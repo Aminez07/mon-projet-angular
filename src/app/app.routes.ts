@@ -6,6 +6,8 @@ import { DashboardGestionnaireComponent } from './components/dashboard-gestionna
 import { DetailProjetMembreComponent } from './components/detail-projet-membre/detail-projet-membre.component';
 import { DetailProjetGestionnaireComponent } from './components/detail-projet-gestionnaire/detail-projet-gestionnaire.component';
 import { CreationProjetComponent } from './components/creation-projet/creation-projet.component';
+import { DetailTacheMembreComponent } from './components/detail-tache-membre/detail-tache-membre.component'; // ✅ Ajout de l'import
+import { CreationTacheComponent } from './components/creation-tache/creation-tache.component'; // ✅ Ajouté ici
 import { AuthGuard } from './guards/auth.guard'; // ✅ Import du Guard
 
 export const routes: Routes = [
@@ -21,6 +23,8 @@ export const routes: Routes = [
   { path: 'dashboard/gestionnaire', component: DashboardGestionnaireComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/gestionnaire/detail-projet', component: DetailProjetGestionnaireComponent, canActivate: [AuthGuard] }, // ✅ Correction avec paramètre ID
   { path: 'dashboard/gestionnaire/creation-projet', component: CreationProjetComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/membre/detail-tache', component: DetailTacheMembreComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/gestionnaire/detail-projet/creation-tache', component: CreationTacheComponent, canActivate: [AuthGuard] },
 
   // ✅ Redirection pour toute route inconnue
   { path: '**', redirectTo: 'auth' }

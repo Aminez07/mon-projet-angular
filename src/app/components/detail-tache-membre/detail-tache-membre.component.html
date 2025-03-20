@@ -1,0 +1,37 @@
+<div class="task-detail-container">
+  <!-- En-tête -->
+  <div class="task-header">
+    <h2>{{ taskName }}</h2>
+    <p><strong>Date d'échéance :</strong> {{ dueDate }}</p>
+    <p><strong>Assigné par :</strong> {{ assignedBy }}</p>
+    <p class="description">{{ description }}</p>
+  </div>
+
+  <!-- Mise à jour du statut -->
+  <div class="status-update">
+    <p><strong>Mettre à jour le statut :</strong></p>
+    <button [class.active]="status === 'Pas commencé'" (click)="updateStatus('Pas commencé')">Pas commencé</button>
+    <button [class.active]="status === 'En cours'" (click)="updateStatus('En cours')">En cours</button>
+    <button [class.active]="status === 'Terminé'" (click)="updateStatus('Terminé')">Terminé</button>
+  </div>
+
+  <!-- Ajout d'un commentaire -->
+  <div class="comments-section">
+    <p><strong>Ajouter un commentaire :</strong></p>
+    <textarea [(ngModel)]="comments" placeholder="Ajoutez votre commentaire ici..."></textarea>
+    <button (click)="addComment()">Ajouter un commentaire</button>
+  </div>
+
+  <!-- Ajout de fichier -->
+  <div class="file-upload">
+    <p><strong>Ajouter une pièce jointe :</strong></p>
+    <input type="file" (change)="handleFileInput($event)" />
+  </div>
+
+  <!-- Boutons -->
+  <div class="actions">
+    <button class="save-button" (click)="saveTask()">Mettre à jour la tâche</button>
+    <button class="dashboard-button" (click)="goToDashboard()">Retour au tableau de bord</button>
+    <button class="logout-button" (click)="logout()">Se Déconnecter</button>
+  </div>
+</div>
