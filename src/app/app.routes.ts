@@ -6,28 +6,47 @@ import { DashboardGestionnaireComponent } from './components/dashboard-gestionna
 import { DetailProjetMembreComponent } from './components/detail-projet-membre/detail-projet-membre.component';
 import { DetailProjetGestionnaireComponent } from './components/detail-projet-gestionnaire/detail-projet-gestionnaire.component';
 import { CreationProjetComponent } from './components/creation-projet/creation-projet.component';
-import { DetailTacheMembreComponent } from './components/detail-tache-membre/detail-tache-membre.component'; // ✅ Ajout de l'import
-import { CreationTacheComponent } from './components/creation-tache/creation-tache.component'; // ✅ Ajouté ici
+import { DetailTacheMembreComponent } from './components/detail-tache-membre/detail-tache-membre.component';
+import { CreationTacheComponent } from './components/creation-tache/creation-tache.component';
 import { DetailTacheGestComponent } from './components/detail-tache-gest/detail-tache-gest.component';
-import { AuthGuard } from './guards/auth.guard'; // ✅ Import du Guard
 import { ModificationTacheComponent } from './components/modification-tache/modification-tache.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ProfileComponent } from './components/profile/profile.component'; // ✅ Décommenté pour le profil
+import { AuthGuard } from './guards/auth.guard'; // ✅ Import du Guard
+
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
   { path: 'register', component: RegisterComponent },
 
-  // ✅ Routes protégées par AuthGuard pour les membres
-  { path: 'dashboard/membre', component: DashboardMembreComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/membre/detail-projet', component: DetailProjetMembreComponent, canActivate: [AuthGuard] }, // ✅ Correction avec paramètre ID
+  // ✅ Routes protégées pour les membres
+  {
+    path: 'dashboard/membre',
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: DashboardMembreComponent },
+      { path: 'detail-projet', component: DetailProjetMembreComponent },
+      { path: 'detail-tache', component: DetailTacheMembreComponent }
+    ]
+  },
 
-  // ✅ Routes protégées par AuthGuard pour les gestionnaires
-  { path: 'dashboard/gestionnaire', component: DashboardGestionnaireComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/gestionnaire/detail-projet', component: DetailProjetGestionnaireComponent, canActivate: [AuthGuard] }, // ✅ Correction avec paramètre ID
-  { path: 'dashboard/gestionnaire/creation-projet', component: CreationProjetComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/membre/detail-tache', component: DetailTacheMembreComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/gestionnaire/detail-projet/creation-tache', component: CreationTacheComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/gestionnaire/detail-tache', component: DetailTacheGestComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/gestionnaire/modification-tache', component: ModificationTacheComponent, canActivate: [AuthGuard] },
+  // ✅ Routes protégées pour les gestionnaires
+  {
+    path: 'dashboard/gestionnaire',
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: DashboardGestionnaireComponent },
+      { path: 'detail-projet', component: DetailProjetGestionnaireComponent },
+      { path: 'detail-projet/creation-tache', component: CreationTacheComponent },
+      { path: 'detail-tache', component: DetailTacheGestComponent },
+      { path: 'modification-tache', component: ModificationTacheComponent },
+      { path: 'creation-projet', component: CreationProjetComponent }
+    ]
+  },
+
+  // ✅ Autres routes protégées
+  { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
+  { path: 'profil', component: ProfileComponent, canActivate: [AuthGuard] },
 
   // ✅ Redirection pour toute route inconnue
   { path: '**', redirectTo: 'auth' }

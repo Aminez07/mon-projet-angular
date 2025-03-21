@@ -1,0 +1,13 @@
+<div class="profile-container">
+  <h2>Profil & Paramètres</h2>
+  <label>Nom</label>
+  <input type="text" [(ngModel)]="user.name" />
+
+  <label>Email</label>
+  <input type="email" [(ngModel)]="user.email" disabled />
+
+  <label>Numéro de téléphone</label>
+  <input type="tel" [(ngModel)]="user.phone" />
+
+  <button class="save-btn" (click)="saveProfile()">Enregistrer</button>
+</div>

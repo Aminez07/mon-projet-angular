@@ -1,0 +1,68 @@
+/* Conteneur principal */
+.profile-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Titre */
+.profile-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Labels */
+.profile-container label {
+  display: block;
+  font-size: 14px;
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: left;
+  color: #555;
+}
+
+/* Champs de formulaire */
+.profile-container input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+}
+
+.profile-container input:focus {
+  border: 1px solid #007bff;
+}
+
+/* Champ désactivé */
+.profile-container input[disabled] {
+  background: #f5f5f5;
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* Bouton Enregistrer */
+.profile-container .save-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.profile-container .save-btn:hover {
+  background: #218838;
+}

@@ -1,0 +1,46 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f5dc;
+  padding: 12px 20px;
+  border-bottom: 2px solid #ddd;
+}
+
+.logo {
+  height: 40px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.icon-button:hover {
+  background: #ffcc00;
+}
+
+.logout-button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-button:hover {
+  background: darkred;
+}
