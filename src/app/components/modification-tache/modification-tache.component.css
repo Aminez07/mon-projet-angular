@@ -1,5 +1,5 @@
-/* Global container */
-.task-creation-container {
+/* Conteneur principal */
+.task-modification-container {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
@@ -35,7 +35,7 @@
   background-color: #0056b3;
 }
 
-/* Form */
+/* Formulaire */
 .task-form {
   margin-top: 20px;
 }
@@ -50,8 +50,7 @@
 
 /* Inputs & Textarea */
 .task-form input,
-.task-form textarea,
-.task-form select {
+.task-form textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -89,7 +88,7 @@
   margin-top: 20px;
 }
 
-.add-task-btn {
+.save-task-btn {
   background-color: #28a745;
   color: white;
   border: none;
@@ -98,7 +97,7 @@
   cursor: pointer;
 }
 
-.add-task-btn:hover {
+.save-task-btn:hover {
   background-color: #218838;
 }
 
@@ -117,7 +116,7 @@
 
 /* Responsive */
 @media screen and (max-width: 500px) {
-  .task-creation-container {
+  .task-modification-container {
     padding: 15px;
   }
 

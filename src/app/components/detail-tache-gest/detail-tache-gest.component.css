@@ -1,0 +1,146 @@
+/* Conteneur principal */
+.task-detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+/* En-tête */
+.task-header {
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.task-header h2 {
+  color: #333;
+}
+
+.task-header p {
+  color: #666;
+  margin: 5px 0;
+}
+
+/* Mise à jour du statut */
+.status-update {
+  margin-bottom: 20px;
+}
+
+.status-update p {
+  font-weight: bold;
+}
+
+.status-update button {
+  margin-right: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+/* Couleurs des boutons de statut */
+.status-update button:nth-child(1) {
+  background-color: #f4b400;
+  color: white;
+}
+
+.status-update button:nth-child(2) {
+  background-color: #4285f4;
+  color: white;
+}
+
+.status-update button:nth-child(3) {
+  background-color: #34a853;
+  color: white;
+}
+
+/* Changement d'état lorsqu'un bouton est actif */
+.status-update button.active {
+  outline: 2px solid black;
+  font-weight: bold;
+}
+
+/* Ajout de commentaire */
+.comments-section {
+  margin-bottom: 20px;
+}
+
+.comments-section textarea {
+  width: 100%;
+  height: 80px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+
+.comments-section button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.comments-section button:hover {
+  background-color: #0056b3;
+}
+
+/* Ajout de fichier */
+.file-upload {
+  margin-bottom: 20px;
+}
+
+.file-upload input {
+  padding: 10px;
+}
+
+/* Boutons d'action */
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+}
+
+.save-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #218838;
+}
+
+.dashboard-button {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.dashboard-button:hover {
+  background-color: #138496;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}

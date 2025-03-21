@@ -53,6 +53,19 @@ export class DetailProjetGestionnaireComponent {
     this.router.navigate(['/dashboard/gestionnaire/detail-projet/creation-tache']);
   }
 
+
+  goToDetailTache(taskName: string) {
+    this.router.navigate(['/dashboard/gestionnaire/detail-tache'], { queryParams: { task: taskName } });
+  }
+  goToModificationTache(task: any) {
+    this.router.navigate(['/dashboard/gestionnaire/modification-tache'], {
+      queryParams: {
+        title: task.name,
+        dueDate: task.dueDate
+      }
+    });
+  }
+
   goToDashboard() {
     this.router.navigate(['/dashboard/gestionnaire']);
   }
@@ -62,10 +75,5 @@ export class DetailProjetGestionnaireComponent {
     this.router.navigate(['/auth']);
   }
 
-  modifyTask(task: any) {
-    const updatedTaskName = prompt('Modifier la tâche :', task.name);
-    if (updatedTaskName !== null && updatedTaskName.trim() !== '') {
-      task.name = updatedTaskName;
-    }
-  }
+
 }

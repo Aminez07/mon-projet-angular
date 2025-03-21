@@ -8,8 +8,9 @@ import { DetailProjetGestionnaireComponent } from './components/detail-projet-ge
 import { CreationProjetComponent } from './components/creation-projet/creation-projet.component';
 import { DetailTacheMembreComponent } from './components/detail-tache-membre/detail-tache-membre.component'; // ✅ Ajout de l'import
 import { CreationTacheComponent } from './components/creation-tache/creation-tache.component'; // ✅ Ajouté ici
+import { DetailTacheGestComponent } from './components/detail-tache-gest/detail-tache-gest.component';
 import { AuthGuard } from './guards/auth.guard'; // ✅ Import du Guard
-
+import { ModificationTacheComponent } from './components/modification-tache/modification-tache.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
@@ -25,6 +26,8 @@ export const routes: Routes = [
   { path: 'dashboard/gestionnaire/creation-projet', component: CreationProjetComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/membre/detail-tache', component: DetailTacheMembreComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/gestionnaire/detail-projet/creation-tache', component: CreationTacheComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/gestionnaire/detail-tache', component: DetailTacheGestComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/gestionnaire/modification-tache', component: ModificationTacheComponent, canActivate: [AuthGuard] },
 
   // ✅ Redirection pour toute route inconnue
   { path: '**', redirectTo: 'auth' }
