@@ -17,20 +17,34 @@ export class RegisterComponent {
 
   constructor(private router: Router) {}
 
+
   onSubmit() {
-    // 🚀 Simulation de l'inscription (en attendant Spring Boot)
-    console.log('Utilisateur inscrit:', {
+    const newUser = {
       fullname: this.fullname,
       email: this.email,
       password: this.password,
       role: this.role
-    });
+    };
 
-    // ⚠️ Ici, il faudra appeler l'API Spring Boot plus tard
+    // Récupérer les utilisateurs existants depuis localStorage
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
 
-    // Redirection vers la connexion après inscription
+    // Vérifie si l’email existe déjà
+    const emailExists = users.some((u: any) => u.email === newUser.email);
+
+    if (emailExists) {
+      alert("❌ Cet email est déjà utilisé.");
+      return;
+    }
+
+    // Ajouter et sauvegarder
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+
+    alert("✅ Inscription réussie !");
     this.router.navigate(['/auth']);
   }
+
 
   goToLogin() {
     this.router.navigate(['/auth']);
