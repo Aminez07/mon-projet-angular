@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // ✅ Ajout du FormsModule pour [(ngModel)]
-import { Router } from '@angular/router'; // ✅ Ajout du Router pour la navigation
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-creation-projet',
-  standalone: true, // ✅ Composant standalone
-  imports: [FormsModule], // ✅ Ajout de FormsModule ici
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './creation-projet.component.html',
   styleUrls: ['./creation-projet.component.css']
 })
@@ -16,24 +16,29 @@ export class CreationProjetComponent {
   endDate: string = '';
   members: string = '';
 
-  constructor(private router: Router) {} // ✅ Injection du Router
+  constructor(private router: Router) {}
 
-  // ✅ Méthode pour enregistrer le projet
   saveProject() {
-    console.log('Projet enregistré :', {
+    const project = {
       projectName: this.projectName,
       projectDescription: this.projectDescription,
       startDate: this.startDate,
       endDate: this.endDate,
       members: this.members
-    });
+    };
 
-    alert('Projet enregistré avec succès !');
-    this.router.navigate(['/dashboard/gestionnaire']); // ✅ Redirection vers le tableau de bord
+    console.log('Projet enregistré :', project);
+
+    // 🗂️ Stocker dans localStorage
+    const existingProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+    existingProjects.push(project);
+    localStorage.setItem('projects', JSON.stringify(existingProjects));
+
+    alert('✅ Projet enregistré avec succès !');
+    this.router.navigate(['/dashboard/gestionnaire']);
   }
 
-  // ✅ Méthode pour annuler la création du projet
   cancel() {
-    this.router.navigate(['/dashboard/gestionnaire']); // ✅ Redirection sans sauvegarde
+    this.router.navigate(['/dashboard/gestionnaire']);
   }
 }

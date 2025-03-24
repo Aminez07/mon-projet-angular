@@ -1,4 +1,5 @@
 <div class="project-container">
+  <!-- En-tête -->
   <header>
     <h2>{{ projectName }}</h2>
     <p>Une description détaillée du projet décrivant ses objectifs.</p>
@@ -6,32 +7,34 @@
     <button class="back-button" (click)="goToDashboard()">Tableau de bord</button>
   </header>
 
+  <!-- Équipe -->
   <section class="team">
     <h3>Équipe</h3>
     <ul>
       <li *ngFor="let member of members">{{ member }}</li>
     </ul>
+    <button (click)="addMember()">Ajouter un membre</button>
   </section>
 
+  <!-- Tâches -->
   <section class="tasks">
     <h3>Liste des tâches</h3>
     <ul>
       <li *ngFor="let task of tasks">
         {{ task.name }} - Date: {{ task.dueDate }}
         <button class="modify-button" (click)="goToModificationTache(task)">Modifier</button>
-
-        <button class="detail-button" (click)="goToDetailTache('Tâche Alpha')">Voir Détail Tâche</button>
-
+        <button class="detail-button" (click)="goToDetailTache(task.name)">Voir Détail Tâche</button>
       </li>
     </ul>
     <button class="action-button" (click)="goToCreationTache()">Créer une tâche</button>
-
   </section>
 
+  <!-- Progrès -->
   <section class="progress">
     <h3>Progrès du projet</h3>
     <p>[Graphique ici]</p>
   </section>
 
+  <!-- Déconnexion -->
   <button class="logout-button" (click)="logout()">Se Déconnecter</button>
 </div>

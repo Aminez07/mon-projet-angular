@@ -1,13 +1,18 @@
-<div class="profile-container">
-  <h2>Profil & Paramètres</h2>
-  <label>Nom</label>
-  <input type="text" [(ngModel)]="user.name" />
+<div class="profil-container" *ngIf="user">
+  <h2>Profil Utilisateur</h2>
+  <p><strong>Nom :</strong> {{ user.nom }}</p>
+  <p><strong>Email :</strong> {{ user.email }}</p>
+  <p><strong>Rôle :</strong> {{ user.role | titlecase }}</p>
 
-  <label>Email</label>
-  <input type="email" [(ngModel)]="user.email" disabled />
+  <div *ngIf="user.role === 'membre'">
+    <p><strong>ID Membre :</strong> {{ user.id }}</p>
+    <p>Accès limité aux tâches assignées</p>
+  </div>
 
-  <label>Numéro de téléphone</label>
-  <input type="tel" [(ngModel)]="user.phone" />
+  <div *ngIf="user.role === 'gestionnaire'">
+    <p><strong>ID Gestionnaire :</strong> {{ user.id }}</p>
+    <p>Accès complet à tous les projets</p>
+  </div>
 
-  <button class="save-btn" (click)="saveProfile()">Enregistrer</button>
+  <button (click)="logout()">Se déconnecter</button>
 </div>

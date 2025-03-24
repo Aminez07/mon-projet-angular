@@ -2,11 +2,15 @@
   {
     "email": "gestionnaire@example.com",
     "password": "password123",
-    "role": "gestionnaire"
+    "role": "gestionnaire",
+    "id": "g1",
+    "nom": "Gestionnaire Démo"
   },
   {
     "email": "membre@example.com",
-    "password": "password123",
-    "role": "membre"
+    "password": "mem123",
+    "role": "membre",
+    "id": "m1",
+    "nom": "Membre Démo"
   }
 ]

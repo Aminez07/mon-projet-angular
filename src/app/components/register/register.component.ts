@@ -17,7 +17,6 @@ export class RegisterComponent {
 
   constructor(private router: Router) {}
 
-
   onSubmit() {
     const newUser = {
       fullname: this.fullname,
@@ -26,10 +25,10 @@ export class RegisterComponent {
       role: this.role
     };
 
-    // Récupérer les utilisateurs existants depuis localStorage
+    // 🔍 Récupérer les utilisateurs existants
     let users = JSON.parse(localStorage.getItem('users') || '[]');
 
-    // Vérifie si l’email existe déjà
+    // ❗ Vérifier si l'email est déjà utilisé
     const emailExists = users.some((u: any) => u.email === newUser.email);
 
     if (emailExists) {
@@ -37,14 +36,15 @@ export class RegisterComponent {
       return;
     }
 
-    // Ajouter et sauvegarder
+    // ✅ Ajouter le nouvel utilisateur
     users.push(newUser);
+
+    // 💾 Enregistrer dans le localStorage
     localStorage.setItem('users', JSON.stringify(users));
 
     alert("✅ Inscription réussie !");
     this.router.navigate(['/auth']);
   }
-
 
   goToLogin() {
     this.router.navigate(['/auth']);

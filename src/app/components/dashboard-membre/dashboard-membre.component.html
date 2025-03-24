@@ -1,38 +1,60 @@
 <div class="dashboard-container">
-  <!-- Barre latérale avec profil -->
+  <!-- Sidebar avec profil utilisateur -->
   <div class="sidebar">
     <div class="profile">
-      <img src="assets/avatar.png" alt="Avatar Membre" class="avatar">
-      <p class="username">Nom d'utilisateur</p>
+      <img src="assets/avatar.png" alt="Avatar Membre" class="avatar" />
+      <p class="username">{{ membreData?.nom }}</p>
       <span class="role">Membre</span>
-      <button class="profile-button">Gérer le Profil</button>
+      <button class="profile-button" (click)="goToProfil()">Gérer le Profil</button>
     </div>
   </div>
 
-  <!-- Liste des projets -->
+  <!-- Section principale avec les projets -->
   <div class="projects-section">
     <h2>Projets :</h2>
-    <div class="projects-list">
-      <!-- Projet Alpha (En cours) -->
-      <div class="project-card in-progress">
-        <p class="project-name">Projet Alpha</p>
-        <span class="project-description">Résumé du projet.</span>
-        <p class="project-status">Statut: <span class="status-label in-progress">En cours</span></p>
-        <p class="task-count">Nombre de tâches: 3</p>
-        <button class="detail-button" (click)="goToDetailProjet('Projet Alpha')">Voir Détails</button>
-      </div>
 
-      <!-- Projet Beta (Terminé) -->
-      <div class="project-card completed">
-        <p class="project-name">Projet Beta</p>
-        <span class="project-description">Résumé du projet.</span>
-        <p class="project-status">Statut: <span class="status-label completed">Terminé</span></p>
-        <p class="task-count">Nombre de tâches: 5</p>
-        <button class="detail-button" (click)="goToDetailProjet('Projet Beta')">Voir Détails</button>
+    <!-- Liste des projets -->
+    <div class="projects-list" *ngIf="projets && projets.length > 0; else aucunProjet">
+      <div
+        class="project-card"
+        *ngFor="let projet of projets"
+        [ngClass]="{
+          'completed': getStatutProjetPourMembre(projet.taches || []) === 'Terminé',
+          'in-progress': getStatutProjetPourMembre(projet.taches || []) === 'En cours',
+          'not-started': getStatutProjetPourMembre(projet.taches || []) === 'Pas commencé'
+        }"
+      >
+        <p class="project-name">{{ projet.nom }}</p>
+        <span class="project-description">{{ projet.description || 'Résumé du projet.' }}</span>
+
+        <p class="project-status">
+          Statut :
+          <span
+            class="status-label"
+            [ngClass]="{
+              'completed': getStatutProjetPourMembre(projet.taches || []) === 'Terminé',
+              'in-progress': getStatutProjetPourMembre(projet.taches || []) === 'En cours',
+              'not-started': getStatutProjetPourMembre(projet.taches || []) === 'Pas commencé'
+            }"
+          >
+            {{ getStatutProjetPourMembre(projet.taches || []) }}
+          </span>
+        </p>
+
+        <p class="task-count">
+          Nombre de tâches : {{ projet.taches?.length || 0 }}
+        </p>
+
+        <button class="detail-button" (click)="goToDetailProjet(projet.nom)">Voir Détails</button>
       </div>
     </div>
+
+    <!-- Si aucun projet -->
+    <ng-template #aucunProjet>
+      <p class="no-project-message">Aucun projet disponible pour ce membre.</p>
+    </ng-template>
   </div>
 
-  <!-- Bouton Déconnexion -->
+  <!-- Bouton de déconnexion -->
   <button class="logout-button" (click)="logout()">Se Déconnecter</button>
 </div>

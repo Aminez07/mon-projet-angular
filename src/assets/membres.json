@@ -1,0 +1,31 @@
+[
+  {
+    "id": "m1",
+    "nom": "Membre Démo",
+    "email": "membre@example.com",
+    "projets": ["Projet Alpha", "Projet Beta"],
+    "taches": [
+      {
+        "nom": "Compléter le front-end",
+        "statut": "en cours",
+        "priorite": "haute",
+        "dateEcheance": "2025-04-01",
+        "projet": "Projet Alpha"
+      },
+      {
+        "nom": "Rédiger la documentation",
+        "statut": "pas commencé",
+        "priorite": "moyenne",
+        "dateEcheance": "2025-04-05",
+        "projet": "Projet Aha"
+      },
+      {
+        "nom": "Valider les tests",
+        "statut": "terminé",
+        "priorite": "basse",
+        "dateEcheance": "2025-03-30",
+        "projet": "Projet Beta"
+      }
+    ]
+  }
+]

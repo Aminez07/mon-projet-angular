@@ -1,22 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
-  user = {
-    name: 'Utilisateur',
-    email: 'utilisateur@example.com',
-    phone: '+1 234 567 890'
-  };
+export class ProfileComponent implements OnInit {
+  user: any = null;
 
-  saveProfile() {
-    alert('Profil mis à jour avec succès !');
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    const data = localStorage.getItem('currentUser');
+    if (data) {
+      this.user = JSON.parse(data);
+    } else {
+      alert("Aucun utilisateur connecté.");
+      this.router.navigate(['/auth']);
+    }
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/auth']);
   }
 }

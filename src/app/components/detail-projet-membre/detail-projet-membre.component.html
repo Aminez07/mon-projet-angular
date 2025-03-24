@@ -5,46 +5,58 @@
     <button class="btn-back" (click)="goToDashboard()">Tableau de Bord</button>
   </div>
 
-  <!-- Conteneur principal -->
-  <div class="content">
-    <!-- Filtres -->
-    <div class="filters">
-      <h3>Filtres</h3>
-      <label><input type="radio" name="filter" value="prioritaire" /> Prioritaire</label>
-      <label><input type="radio" name="filter" value="semaine" /> À rendre cette semaine</label>
-      <label><input type="radio" name="filter" value="termine" /> Terminé</label>
-    </div>
+  <!-- Contenu principal -->
+  <div class="content" *ngIf="membreData">
+    <div class="layout">
 
-    <!-- Liste des tâches -->
-    <div class="tasks">
-      <div class="task-card high-priority">
-        <h4>Concevoir une nouvelle interface utilisateur</h4>
-        <p>Détails de la tâche concernant la conception d’une nouvelle interface utilisateur.</p>
-        <span class="due-date">Date d’échéance: 10/10/2023</span>
-        <span class="priority">Priorité: Haute</span>
-        <button class="detail-button" (click)="goToDetailTache('Concevoir une nouvelle interface utilisateur')">
-          Voir Détails
-        </button>
+      <!-- Sélecteur de projet -->
+      <div class="project-selector">
+        <label for="project-select"><strong>Projet :</strong></label>
+        <select id="project-select" [(ngModel)]="projetSelectionne" (change)="filtrerTachesParProjet()">
+          <option *ngFor="let projet of projets" [value]="projet">{{ projet }}</option>
+        </select>
       </div>
 
-      <div class="task-card low-priority">
-        <h4>Tests utilisateur</h4>
-        <p>Mener des sessions de tests utilisateurs pour recueillir des commentaires.</p>
-        <span class="due-date">Date d’échéance: 15/10/2023</span>
-        <span class="priority">Priorité: Basse</span>
-        <button class="detail-button" (click)="goToDetailTache('Tests utilisateur')">
-          Voir Détails
-        </button>
+      <!-- Filtres -->
+      <div class="filters">
+        <h3>Filtres</h3>
+        <label>
+          <input type="radio" name="filter" (change)="setFiltre('prioritaire')" />
+          Prioritaire
+        </label>
+        <label>
+          <input type="radio" name="filter" (change)="setFiltre('semaine')" />
+          À rendre cette semaine
+        </label>
+        <label>
+          <input type="radio" name="filter" (change)="setFiltre('termine')" />
+          Terminé
+        </label>
       </div>
 
-      <div class="task-card medium-priority">
-        <h4>Intégration Backend</h4>
-        <p>Intégrer les API backend aux composants frontend.</p>
-        <span class="due-date">Date d’échéance: 12/10/2023</span>
-        <span class="priority">Priorité: Moyenne</span>
-        <button class="detail-button" (click)="goToDetailTache('Intégration Backend')">
-          Voir Détails
-        </button>
+      <!-- Liste des tâches filtrées -->
+      <div class="tasks">
+        <div
+          class="task-card"
+          *ngFor="let tache of getTachesFiltrees(); trackBy: trackByNom"
+          [ngClass]="{
+            'high-priority': tache.priorite?.toLowerCase() === 'haute',
+            'medium-priority': tache.priorite?.toLowerCase() === 'moyenne',
+            'low-priority': tache.priorite?.toLowerCase() === 'basse'
+          }"
+        >
+          <div class="task-content">
+            <p><strong>📅 Date d’échéance:</strong> {{ tache.dateEcheance }}</p>
+            <p><strong>🚩 Priorité:</strong> {{ tache.priorite | titlecase }}</p>
+            <p><strong>📌 Statut:</strong> {{ tache.statut }}</p>
+          </div>
+          <button class="detail-button" (click)="goToDetailTache(tache.nom)">Voir Détails</button>
+        </div>
+
+        <!-- Message si aucune tâche -->
+        <div *ngIf="getTachesFiltrees().length === 0" class="no-task">
+          <p>Aucune tâche ne correspond à ce filtre pour ce projet.</p>
+        </div>
       </div>
     </div>
   </div>

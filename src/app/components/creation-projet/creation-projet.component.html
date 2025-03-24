@@ -10,35 +10,62 @@
   </div>
 
   <!-- Formulaire -->
-  <form class="project-form">
-    <!-- Nom et description -->
+  <form class="project-form" (ngSubmit)="saveProject()">
+    <!-- Nom du projet -->
     <div class="input-group">
       <label for="project-name">Nom du projet</label>
-      <input type="text" id="project-name" [(ngModel)]="projectName" placeholder="Entrer le nom du projet" required />
+      <input
+        type="text"
+        id="project-name"
+        name="projectName"
+        [(ngModel)]="projectName"
+        placeholder="Entrer le nom du projet"
+        required />
     </div>
 
+    <!-- Description -->
     <div class="input-group">
       <label for="project-description">Description du projet</label>
-      <textarea id="project-description" [(ngModel)]="projectDescription" placeholder="Description" required></textarea>
+      <textarea
+        id="project-description"
+        name="projectDescription"
+        [(ngModel)]="projectDescription"
+        placeholder="Description"
+        required></textarea>
     </div>
 
     <!-- Dates -->
     <div class="date-group">
       <div class="input-group">
         <label for="start-date">Date de début</label>
-        <input type="date" id="start-date" [(ngModel)]="startDate" required />
+        <input
+          type="date"
+          id="start-date"
+          name="startDate"
+          [(ngModel)]="startDate"
+          required />
       </div>
 
       <div class="input-group">
         <label for="end-date">Date d'échéance</label>
-        <input type="date" id="end-date" [(ngModel)]="endDate" required />
+        <input
+          type="date"
+          id="end-date"
+          name="endDate"
+          [(ngModel)]="endDate"
+          required />
       </div>
     </div>
 
-    <!-- Ajout des membres -->
+    <!-- Membres -->
     <div class="input-group">
       <label for="add-members">Ajout des membres</label>
-      <input type="text" id="add-members" [(ngModel)]="members" placeholder="Ajouter des membres" />
+      <input
+        type="text"
+        id="add-members"
+        name="members"
+        [(ngModel)]="members"
+        placeholder="Ajouter des membres" />
     </div>
   </form>
 </div>

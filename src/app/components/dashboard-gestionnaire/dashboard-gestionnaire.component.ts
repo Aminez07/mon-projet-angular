@@ -21,6 +21,10 @@ export class DashboardGestionnaireComponent {
     console.log('Redirection vers détail projet:', projectName); // ✅ Debug
     this.router.navigate(['/dashboard/gestionnaire/detail-projet'], { queryParams: { projet: projectName } });
   }
+  goToProfil() {
+    this.router.navigate(['/profil']);
+  }
+
 
   // Déconnexion
   logout() {
