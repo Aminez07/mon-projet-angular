@@ -4,8 +4,8 @@
     <img src="assets/logo.png" alt="ProjectCollab Logo" class="logo" />
     <h2>Créer un nouveau projet</h2>
     <div class="actions">
-      <button class="save-button" (click)="saveProject()">Enregistrer</button>
-      <button class="cancel-button" (click)="cancel()">Annuler</button>
+      <button class="save-button" (click)="saveProject()">💾 Enregistrer</button>
+      <button class="cancel-button" (click)="cancel()">❌ Annuler</button>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
         id="project-name"
         name="projectName"
         [(ngModel)]="projectName"
-        placeholder="Entrer le nom du projet"
+        placeholder="Entrez le nom du projet"
         required />
     </div>
 
@@ -30,7 +30,7 @@
         id="project-description"
         name="projectDescription"
         [(ngModel)]="projectDescription"
-        placeholder="Description"
+        placeholder="Ajoutez une description"
         required></textarea>
     </div>
 
@@ -59,13 +59,13 @@
 
     <!-- Membres -->
     <div class="input-group">
-      <label for="add-members">Ajout des membres</label>
+      <label for="add-members">Ajout des membres (séparés par virgule)</label>
       <input
         type="text"
         id="add-members"
         name="members"
         [(ngModel)]="members"
-        placeholder="Ajouter des membres" />
+        placeholder="ex: membre1@example.com, membre2@example.com" />
     </div>
   </form>
 </div>

@@ -14,25 +14,42 @@ export class CreationProjetComponent {
   projectDescription: string = '';
   startDate: string = '';
   endDate: string = '';
-  members: string = '';
+  members: string = ''; // tu pourras améliorer ça plus tard avec une vraie liste
 
   constructor(private router: Router) {}
 
   saveProject() {
-    const project = {
-      projectName: this.projectName,
-      projectDescription: this.projectDescription,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      members: this.members
+    const userId = localStorage.getItem('userId');
+    const gestionnairesRaw = localStorage.getItem('gestionnaires');
+
+    if (!userId || !gestionnairesRaw) {
+      alert('❌ Impossible de récupérer les données du gestionnaire.');
+      return;
+    }
+
+    const gestionnaires = JSON.parse(gestionnairesRaw);
+    const gestionnaire = gestionnaires.find((g: any) => g.id === userId);
+
+    if (!gestionnaire) {
+      alert('❌ Gestionnaire non trouvé.');
+      return;
+    }
+
+    const nouveauProjet = {
+      nom: this.projectName,
+      description: this.projectDescription,
+      dateDebut: this.startDate,
+      dateEcheance: this.endDate,
+      membres: this.members.split(',').map(m => m.trim()),
+      taches: [] // Projet vide au départ
     };
 
-    console.log('Projet enregistré :', project);
+    // Ajout dans les projets du gestionnaire
+    if (!gestionnaire.projets) gestionnaire.projets = [];
+    gestionnaire.projets.push(nouveauProjet);
 
-    // 🗂️ Stocker dans localStorage
-    const existingProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-    existingProjects.push(project);
-    localStorage.setItem('projects', JSON.stringify(existingProjects));
+    // Sauvegarde
+    localStorage.setItem('gestionnaires', JSON.stringify(gestionnaires));
 
     alert('✅ Projet enregistré avec succès !');
     this.router.navigate(['/dashboard/gestionnaire']);

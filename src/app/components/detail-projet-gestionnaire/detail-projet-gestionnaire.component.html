@@ -1,40 +1,52 @@
-<div class="project-container">
+<div class="detail-container" *ngIf="projet">
   <!-- En-tête -->
-  <header>
-    <h2>{{ projectName }}</h2>
-    <p>Une description détaillée du projet décrivant ses objectifs.</p>
-    <button class="delete-button" (click)="deleteProject()">Supprimer le projet</button>
-    <button class="back-button" (click)="goToDashboard()">Tableau de bord</button>
+  <header class="project-header">
+    <h2>{{ projet.nom }}</h2>
+    <p>{{ projet.description || 'Aucune description fournie.' }}</p>
+
+    <div class="project-meta">
+      <span>📅 Début : {{ projet.dateDebut }}</span>
+      <span>🗓 Échéance : {{ projet.dateEcheance }}</span>
+    </div>
+
+    <div class="header-actions">
+      <button class="danger" (click)="deleteProject()">🗑 Supprimer</button>
+      <button (click)="goToDashboard()">⬅ Retour</button>
+    </div>
   </header>
 
-  <!-- Équipe -->
-  <section class="team">
-    <h3>Équipe</h3>
+  <!-- Membres -->
+  <section class="project-section">
+    <h3>👥 Membres assignés</h3>
     <ul>
-      <li *ngFor="let member of members">{{ member }}</li>
+      <li *ngFor="let member of projet.membres">{{ member }}</li>
     </ul>
-    <button (click)="addMember()">Ajouter un membre</button>
+    <button (click)="addMember()">➕ Ajouter un membre</button>
   </section>
 
   <!-- Tâches -->
-  <section class="tasks">
-    <h3>Liste des tâches</h3>
+  <section class="project-section">
+    <h3>✅ Tâches</h3>
     <ul>
-      <li *ngFor="let task of tasks">
-        {{ task.name }} - Date: {{ task.dueDate }}
-        <button class="modify-button" (click)="goToModificationTache(task)">Modifier</button>
-        <button class="detail-button" (click)="goToDetailTache(task.name)">Voir Détail Tâche</button>
+      <li *ngFor="let task of projet.taches">
+        <strong>{{ task.nom }}</strong> — {{ task.statut }} — 🔥 {{ task.priorite }} — 🗓 {{ task.dateEcheance }}
+        <br />
+        <small>👤 Assignée à : {{ task.assigneA || 'Non défini' }}</small>
+        <div>
+          <button (click)="goToModificationTache(task)">✏️ Modifier</button>
+          <button (click)="goToDetailTache(task)">🔍 Voir Détail</button>
+        </div>
       </li>
     </ul>
-    <button class="action-button" (click)="goToCreationTache()">Créer une tâche</button>
-  </section>
-
-  <!-- Progrès -->
-  <section class="progress">
-    <h3>Progrès du projet</h3>
-    <p>[Graphique ici]</p>
+    <button (click)="addTask()">➕ Ajouter une tâche</button>
   </section>
 
   <!-- Déconnexion -->
-  <button class="logout-button" (click)="logout()">Se Déconnecter</button>
+  <footer>
+    <button class="logout-button" (click)="logout()">🚪 Déconnexion</button>
+  </footer>
 </div>
+
+<ng-template [ngIf]="!projet">
+  <p>⚠️ Projet introuvable.</p>
+</ng-template>

@@ -1,79 +1,111 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common'; // ✅ Ajout de CommonModule
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-detail-projet-gestionnaire',
   standalone: true,
-  imports: [CommonModule], // ✅ Ajout de CommonModule ici pour *ngFor
+  imports: [CommonModule],
   templateUrl: './detail-projet-gestionnaire.component.html',
   styleUrls: ['./detail-projet-gestionnaire.component.css']
 })
 export class DetailProjetGestionnaireComponent {
   projectName: string = '';
-  tasks: any[] = [
-    { name: 'Créer la page d’accueil', dueDate: '2025-01-10', completed: false },
-    { name: 'Développer les APIs Backend', dueDate: '2025-01-15', completed: false }
-  ];
-  members: string[] = [];
+  projet: any = null;
+  gestionnaireId: string = '';
+  gestionnaireData: any = null;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
-      this.projectName = params['projet'] || 'Projet Alpha';
+      this.projectName = params['projet'];
+      this.gestionnaireId = localStorage.getItem('userId') || '';
+      this.chargerProjet();
     });
-
-    // ✅ Charger les membres existants depuis le stockage local
-    const storedMembers = localStorage.getItem('projectMembers');
-    this.members = storedMembers ? JSON.parse(storedMembers) : [];
   }
 
-  deleteProject() {
-    alert('Projet supprimé avec succès.');
-    this.router.navigate(['/dashboard/gestionnaire']);
+  chargerProjet() {
+    const data = localStorage.getItem('gestionnaires');
+    if (!data || !this.gestionnaireId) return;
+
+    const gestionnaires = JSON.parse(data);
+    this.gestionnaireData = gestionnaires.find((g: any) => g.id === this.gestionnaireId);
+
+    if (this.gestionnaireData && this.gestionnaireData.projets) {
+      this.projet = this.gestionnaireData.projets.find((p: any) => p.nom === this.projectName);
+    }
   }
 
   addTask() {
-    const newTask = prompt('Nouvelle tâche :');
-    if (newTask) {
-      this.tasks.push({ name: newTask, dueDate: '2025-01-20', completed: false });
+    const taskName = prompt('Nom de la tâche :');
+    if (taskName && this.projet) {
+      const nouvelleTache = {
+        nom: taskName,
+        statut: 'pas commencé',
+        priorite: 'moyenne',
+        dateEcheance: '2025-04-01',
+        assigneA: this.projet.membres?.[0] || null
+      };
+
+      if (!this.projet.taches) this.projet.taches = [];
+      this.projet.taches.push(nouvelleTache);
+      this.enregistrerProjet();
+      alert('✅ Tâche ajoutée avec succès !');
     }
   }
 
-  // ✅ Ajouter un membre dynamiquement
   addMember() {
-    const newMember = prompt('Nom du membre à ajouter :');
-    if (newMember && newMember.trim() !== '') {
-      this.members.push(newMember);
-      localStorage.setItem('projectMembers', JSON.stringify(this.members)); // ✅ Sauvegarde persistante
-      alert(`Membre "${newMember}" ajouté avec succès !`);
+    const email = prompt("Email du membre à ajouter :");
+    if (email && !this.projet.membres.includes(email)) {
+      this.projet.membres.push(email);
+      this.enregistrerProjet();
+      alert(`✅ Membre ${email} ajouté.`);
     }
   }
 
-  goToCreationTache() {
-    this.router.navigate(['/dashboard/gestionnaire/detail-projet/creation-tache']);
+  deleteProject() {
+    const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
+    if (!confirmation || !this.gestionnaireData) return;
+
+    this.gestionnaireData.projets = this.gestionnaireData.projets.filter((p: any) => p.nom !== this.projectName);
+    const allGestionnaires = JSON.parse(localStorage.getItem('gestionnaires') || '[]');
+    const index = allGestionnaires.findIndex((g: any) => g.id === this.gestionnaireId);
+    allGestionnaires[index] = this.gestionnaireData;
+
+    localStorage.setItem('gestionnaires', JSON.stringify(allGestionnaires));
+    alert("🚮 Projet supprimé.");
+    this.router.navigate(['/dashboard/gestionnaire']);
   }
 
-
-  goToDetailTache(taskName: string) {
-    this.router.navigate(['/dashboard/gestionnaire/detail-tache'], { queryParams: { task: taskName } });
-  }
-  goToModificationTache(task: any) {
-    this.router.navigate(['/dashboard/gestionnaire/modification-tache'], {
-      queryParams: {
-        title: task.name,
-        dueDate: task.dueDate
-      }
-    });
+  enregistrerProjet() {
+    const allGestionnaires = JSON.parse(localStorage.getItem('gestionnaires') || '[]');
+    const index = allGestionnaires.findIndex((g: any) => g.id === this.gestionnaireId);
+    if (index !== -1) {
+      allGestionnaires[index] = this.gestionnaireData;
+      localStorage.setItem('gestionnaires', JSON.stringify(allGestionnaires));
+    }
   }
 
   goToDashboard() {
     this.router.navigate(['/dashboard/gestionnaire']);
   }
 
-  logout() {
-    localStorage.removeItem('userRole');
-    this.router.navigate(['/auth']);
+  goToDetailTache(task: any) {
+    this.router.navigate(['/dashboard/gestionnaire/detail-tache'], {
+      queryParams: { task: task.nom }
+    });
   }
 
+  goToModificationTache(task: any) {
+    this.router.navigate(['/dashboard/gestionnaire/modification-tache'], {
+      queryParams: {
+        title: task.nom,
+        dueDate: task.dateEcheance
+      }
+    });
+  }
 
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/auth']);
+  }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Pour ngModel
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-detail-tache-gest',
@@ -11,53 +11,104 @@ import { FormsModule } from '@angular/forms'; // Pour ngModel
   styleUrls: ['./detail-tache-gest.component.css']
 })
 export class DetailTacheGestComponent {
-  taskName: string = 'Titre de la Tâche';
-  dueDate: string = '15 octobre 2024';
-  assignedTo: string = 'Membre 1';
-  description: string = 'Description de la tâche...';
-  status: string = 'Pas commencé';
+  taskName: string = '';
+  dueDate: string = '';
+  assignedTo: string = '';
+  description: string = '';
+  status: string = '';
   comments: string = '';
   file: File | null = null;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  gestionnaireId: string = '';
+  gestionnaireData: any = null;
+  projetParent: any = null;
+  tache: any = null;
+
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
-      this.taskName = params['task'] || 'Titre de la Tâche';
+      this.taskName = params['task'];
+      this.gestionnaireId = localStorage.getItem('userId') || '';
+      this.chargerTache();
     });
+  }
+
+  chargerTache() {
+    const data = localStorage.getItem('gestionnaires');
+    if (!data || !this.gestionnaireId || !this.taskName) return;
+
+    const gestionnaires = JSON.parse(data);
+    this.gestionnaireData = gestionnaires.find((g: any) => g.id === this.gestionnaireId);
+
+    if (!this.gestionnaireData) return;
+
+    for (let projet of this.gestionnaireData.projets) {
+      const tacheTrouvee = projet.taches.find((t: any) => t.nom === this.taskName);
+      if (tacheTrouvee) {
+        this.projetParent = projet;
+        this.tache = tacheTrouvee;
+        this.status = this.tache.statut;
+        this.dueDate = this.tache.dateEcheance;
+        this.assignedTo = this.tache.assigneA || '';
+        this.description = this.tache.description || '';
+        break;
+      }
+    }
   }
 
   updateStatus(newStatus: string) {
     this.status = newStatus;
-    alert(`Statut mis à jour : ${newStatus}`);
   }
 
   addComment() {
-    if (this.comments.trim() !== '') {
-      alert(`Commentaire ajouté : ${this.comments}`);
+    if (this.comments.trim()) {
+      this.tache.commentaire = this.comments;
+      this.enregistrer();
+      alert('💬 Commentaire ajouté avec succès !');
     } else {
-      alert('Veuillez entrer un commentaire.');
+      alert('❗ Veuillez entrer un commentaire.');
     }
   }
 
   handleFileInput(event: any) {
     if (event.target.files.length > 0) {
-      this.file = event.target.files[0];
-      alert(`Fichier ajouté : ${this.file?.name}`);
+      const fichier = event.target.files[0];
+      if (this.tache && fichier) {
+        this.file = fichier;
+        this.tache.fichier = fichier.name;
+        this.enregistrer();
+        alert(`📎 Fichier "${fichier.name}" ajouté à la tâche.`);
+      }
     } else {
       alert('Aucun fichier sélectionné.');
     }
   }
 
-  async saveTask() {
-    alert('Tâche mise à jour avec succès.');
-    await this.router.navigate(['/dashboard/gestionnaire']);
+  saveTask() {
+    if (this.tache) {
+      this.tache.statut = this.status;
+      this.tache.dateEcheance = this.dueDate;
+      this.tache.assigneA = this.assignedTo;
+      this.tache.description = this.description;
+      this.enregistrer();
+      alert('✅ Tâche mise à jour avec succès.');
+    }
   }
 
-  async goToDashboard() {
-    await this.router.navigate(['/dashboard/gestionnaire']);
+  enregistrer() {
+    const allGestionnaires = JSON.parse(localStorage.getItem('gestionnaires') || '[]');
+    const index = allGestionnaires.findIndex((g: any) => g.id === this.gestionnaireId);
+    if (index !== -1) {
+      allGestionnaires[index] = this.gestionnaireData;
+      localStorage.setItem('gestionnaires', JSON.stringify(allGestionnaires));
+    }
   }
 
-  async logout() {
-    localStorage.removeItem('userRole');
-    await this.router.navigate(['/auth']);
+  goToDashboard() {
+    this.router.navigate(['/dashboard/gestionnaire']);
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/auth']);
   }
 }

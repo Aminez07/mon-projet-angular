@@ -40,6 +40,7 @@ export class AuthService {
       localStorage.setItem('userId', user.id);
       localStorage.setItem('currentUser', JSON.stringify(user));
 
+      // ✅ Gestionnaire ou membre
       if (user.role === 'membre') {
         this.http.get<any[]>('assets/membres.json').subscribe({
           next: (membres) => {
@@ -53,7 +54,21 @@ export class AuthService {
             observer.error(err);
           }
         });
+      } else if (user.role === 'gestionnaire') {
+        this.http.get<any[]>('assets/gestionnaires.json').subscribe({
+          next: (gestionnaires) => {
+            localStorage.setItem('gestionnaires', JSON.stringify(gestionnaires));
+            console.log('📦 Données gestionnaires chargées.');
+            observer.next(user);
+            observer.complete();
+          },
+          error: (err) => {
+            console.error('❌ Erreur chargement gestionnaires.json', err);
+            observer.error(err);
+          }
+        });
       } else {
+        // Rôle inconnu, mais valide quand même
         observer.next(user);
         observer.complete();
       }
@@ -70,5 +85,6 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('users');
     localStorage.removeItem('membres');
+    localStorage.removeItem('gestionnaires');
   }
 }

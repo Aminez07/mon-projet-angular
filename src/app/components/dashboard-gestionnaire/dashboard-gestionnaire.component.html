@@ -1,42 +1,45 @@
 <div class="dashboard-container">
-  <!-- Logo et profil utilisateur -->
+  <!-- Barre latérale : Profil + actions -->
   <div class="sidebar">
     <div class="profile">
-      <img src="assets/avatar.png" alt="Avatar Gestion" class="avatar">
-      <p class="username">Nom d'utilisateur</p>
-      <span class="role">Manager</span>
-      <button class="profile-button">Gérer le Profil</button>
+      <img src="assets/avatar.png" alt="Avatar Gestion" class="avatar" />
+      <p class="username">{{ gestionnaireData?.nom || 'Nom d\'utilisateur' }}</p>
+      <span class="role">Gestionnaire</span>
+      <button class="profile-button" (click)="goToProfil()">Gérer le Profil</button>
     </div>
 
-    <!-- Gestion des projets -->
     <div class="project-actions">
       <h3>Gérer les projets</h3>
       <button class="action-button" (click)="goToCreationProjet()">Créer un nouveau projet</button>
-      <button class="action-button">Suivre la progression</button>
-      <button class="action-button">Inviter des membres</button>
+      <button class="action-button" disabled>Suivre la progression</button>
+      <button class="action-button" disabled>Inviter des membres</button>
     </div>
   </div>
 
   <!-- Liste des projets -->
   <div class="projects-section">
-    <h2>Projets :</h2>
-    <div class="projects-list">
-      <!-- Projet Alpha -->
-      <div class="project-card">
-        <p class="project-name">Projet Alpha</p>
-        <span class="project-description">Résumé du projet.</span>
-        <div class="progress-chart"></div>
-        <button class="detail-button" (click)="goToDetailProjet('Projet Alpha')">Voir Détails</button>
-      </div>
+    <h2>Mes projets</h2>
 
-      <!-- Projet Beta -->
-      <div class="project-card">
-        <p class="project-name">Projet Beta</p>
-        <span class="project-description">Résumé du projet.</span>
-        <div class="progress-chart"></div>
-        <button class="detail-button" (click)="goToDetailProjet('Projet Beta')">Voir Détails</button>
+    <div class="projects-list" *ngIf="projets && projets.length > 0; else aucunProjet">
+      <div class="project-card" *ngFor="let projet of projets">
+        <p class="project-name">{{ projet.nom }}</p>
+        <span class="project-description">
+          {{ projet.description || 'Aucune description disponible.' }}
+        </span>
+
+        <div class="progress-chart">
+          <p><strong>📊 Statut :</strong> {{ projet.statut }}</p>
+        </div>
+
+        <button class="detail-button" (click)="goToDetailProjet(projet.nom)">
+          Voir Détails
+        </button>
       </div>
     </div>
+
+    <ng-template #aucunProjet>
+      <p class="no-projects">Aucun projet disponible pour ce gestionnaire.</p>
+    </ng-template>
   </div>
 
   <!-- Bouton Déconnexion -->
