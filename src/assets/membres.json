@@ -3,6 +3,7 @@
     "id": "m1",
     "nom": "Membre Démo",
     "email": "membre@example.com",
+    "avatar": "assets/avatars/membre.jpg",
     "projets": [
       {
         "nom": "Projet Alpha",

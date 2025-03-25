@@ -144,3 +144,11 @@
 .logout-button:hover {
   background-color: #b02a37;
 }
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+}

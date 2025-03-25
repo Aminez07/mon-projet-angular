@@ -2,7 +2,8 @@
   <!-- Sidebar avec profil utilisateur -->
   <div class="sidebar">
     <div class="profile">
-      <img src="assets/avatar.png" alt="Avatar Membre" class="avatar" />
+      <img [src]="membreData?.avatar || 'assets/avatar-par-defaut.jpg'" alt="Avatar Membre" class="avatar" />
+
       <p class="username">{{ membreData?.nom }}</p>
       <span class="role">Membre</span>
       <button class="profile-button" (click)="goToProfil()">Gérer le Profil</button>

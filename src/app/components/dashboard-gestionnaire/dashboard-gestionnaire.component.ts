@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Pour *ngIf, *ngFor
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-gestionnaire',
@@ -25,7 +25,7 @@ export class DashboardGestionnaireComponent implements OnInit {
         this.gestionnaireData = gestionnaires.find((g: any) => g.id === userId);
 
         if (this.gestionnaireData) {
-          // ✅ Si l'avatar n'existe pas, on met une image par défaut
+          // Assigner un avatar par défaut s'il est manquant
           if (!this.gestionnaireData.avatar) {
             this.gestionnaireData.avatar = 'assets/avatar-par-defaut.jpg';
           }
@@ -50,7 +50,6 @@ export class DashboardGestionnaireComponent implements OnInit {
     }
   }
 
-  // ✅ Statut intelligent basé sur les tâches
   calculerStatutProjet(projet: any): string {
     if (!projet.taches || projet.taches.length === 0) {
       return 'Aucune tâche';
@@ -68,6 +67,7 @@ export class DashboardGestionnaireComponent implements OnInit {
   goToCreationProjet(): void {
     this.router.navigate(['/dashboard/gestionnaire/creation-projet']);
   }
+
   goToSuiviProgression(): void {
     this.router.navigate(['/dashboard/gestionnaire/suivi']);
   }
