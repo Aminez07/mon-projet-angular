@@ -20,23 +20,51 @@ export class DashboardMembreComponent implements OnInit {
     const userId = localStorage.getItem('userId');
 
     if (data && userId) {
-      const membres = JSON.parse(data);
-      this.membreData = membres.find((m: any) => m.id === userId);
+      try {
+        const membres = JSON.parse(data);
+        this.membreData = membres.find((m: any) => m.id === userId);
 
-      if (this.membreData && Array.isArray(this.membreData.projets)) {
-        this.projets = this.membreData.projets;
+        if (this.membreData && Array.isArray(this.membreData.projets)) {
+          this.projets = this.membreData.projets;
+        } else {
+          console.warn('🔍 Aucun projet trouvé pour ce membre.');
+          this.projets = [];
+        }
+      } catch (e) {
+        console.error('❌ Erreur lors de la lecture du fichier membres.json :', e);
+        this.projets = [];
       }
+    } else {
+      console.warn('⚠ Données utilisateur ou membres non trouvées dans localStorage.');
+      this.projets = [];
     }
   }
 
+  isArray(value: any): boolean {
+    return Array.isArray(value);
+  }
+
   getStatutProjetPourMembre(taches: any[]): string {
-    if (!taches || taches.length === 0) return 'Aucune tâche';
-    if (taches.every(t => t.statut?.toLowerCase() === 'terminé')) {
-      return 'Terminé';
-    } else if (taches.some(t => t.statut?.toLowerCase() === 'en cours')) {
-      return 'En cours';
-    } else {
-      return 'Pas commencé';
+    if (!Array.isArray(taches) || taches.length === 0) return 'Pas commencé';
+
+    const total = taches.length;
+    const terminees = taches.filter(t => t.statut?.toLowerCase() === 'terminé').length;
+
+    if (terminees === total) return 'Terminé';
+    if (terminees === 0) return 'Pas commencé';
+    return 'En cours';
+  }
+
+  getClassForStatut(statut: string): string {
+    switch (statut.toLowerCase()) {
+      case 'terminé':
+        return 'completed';
+      case 'en cours':
+        return 'in-progress';
+      case 'pas commencé':
+        return 'not-started';
+      default:
+        return 'unknown';
     }
   }
 
@@ -53,5 +81,9 @@ export class DashboardMembreComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.router.navigate(['/auth']);
+  }
+
+  trackByNom(index: number, projet: any): string {
+    return projet.nom;
   }
 }

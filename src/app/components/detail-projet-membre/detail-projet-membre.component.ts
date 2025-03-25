@@ -11,12 +11,10 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, TitleCasePipe, FormsModule]
 })
 export class DetailProjetMembreComponent implements OnInit {
-  membreId: string = '';
   membreData: any = null;
-  projets: string[] = []; // ✅ Tableau des noms de projets
-  projetSelectionne: string = '';
+  projets: any[] = [];
+  projetSelectionneNom: string = '';
   filtreActif: string = '';
-  tachesFiltreesParProjet: any[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -28,67 +26,66 @@ export class DetailProjetMembreComponent implements OnInit {
       const membres = JSON.parse(data);
       this.membreData = membres.find((m: any) => m.id === userId);
 
-      if (this.membreData && this.membreData.taches) {
-        // Extraire les projets uniques à partir des tâches
-        const projetsSet = new Set<string>();
-        this.membreData.taches.forEach((t: any) => {
-          if (t.projet) projetsSet.add(t.projet);
-        });
+      if (this.membreData && Array.isArray(this.membreData.projets)) {
+        this.projets = this.membreData.projets;
 
-        this.projets = Array.from(projetsSet);
-
-        // Sélectionner automatiquement le premier projet
-        if (this.projets.length > 0) {
-          this.projetSelectionne = this.projets[0];
-          this.filtrerTachesParProjet();
-        }
+        const projetParam = this.route.snapshot.queryParamMap.get('projet');
+        this.projetSelectionneNom = projetParam || this.projets[0]?.nom || '';
       }
     }
   }
 
-  filtrerTachesParProjet() {
-    this.tachesFiltreesParProjet = this.membreData?.taches?.filter(
-      (t: any) => t.projet === this.projetSelectionne
-    ) || [];
+  // Getter pour retourner l'objet projet sélectionné
+  get projetSelectionne(): any {
+    return this.projets.find((p: any) => p.nom === this.projetSelectionneNom);
   }
 
-  getTachesFiltrees() {
-    let taches = this.tachesFiltreesParProjet;
+  // Filtrer les tâches selon le filtre actif
+  getTachesFiltrees(): any[] {
+    const projet = this.projetSelectionne;
+    if (!projet || !projet.taches) return [];
 
-    if (!this.filtreActif) return taches;
+    const taches = projet.taches;
 
-    return taches.filter((t: any) => {
-      switch (this.filtreActif) {
-        case 'prioritaire':
-          return t.priorite?.toLowerCase() === 'haute';
-        case 'semaine':
-          const now = new Date();
-          const dateEcheance = new Date(t.dateEcheance);
-          const diff = (dateEcheance.getTime() - now.getTime()) / (1000 * 3600 * 24);
-          return diff >= 0 && diff <= 7;
-        case 'termine':
-          return t.statut?.toLowerCase() === 'terminé' || t.statut?.toLowerCase() === 'termine';
-        default:
-          return true;
-      }
-    });
+    switch (this.filtreActif) {
+      case 'prioritaire':
+        return taches.filter((t: any) => t.priorite?.toLowerCase() === 'haute');
+      case 'semaine':
+        const today = new Date();
+        const in7days = new Date(today);
+        in7days.setDate(today.getDate() + 7);
+        return taches.filter((t: any) => {
+          const date = new Date(t.dateEcheance);
+          return date >= today && date <= in7days;
+        });
+      case 'termine':
+        return taches.filter((t: any) =>
+          t.statut?.toLowerCase() === 'terminé' || t.statut?.toLowerCase() === 'termine'
+        );
+      default:
+        return taches;
+    }
   }
 
+  // Définir le filtre actif
   setFiltre(val: string) {
     this.filtreActif = val;
   }
 
-  trackByNom(index: number, tache: any) {
-    return tache.nom;
-  }
-
+  // Aller vers les détails d'une tâche
   goToDetailTache(titre: string) {
     this.router.navigate(['/dashboard/membre/detail-tache'], {
       queryParams: { task: titre }
     });
   }
 
+  // Revenir au tableau de bord
   goToDashboard() {
     this.router.navigate(['/dashboard/membre']);
+  }
+
+  // Utilisé pour *ngFor trackBy
+  trackByNom(index: number, item: any) {
+    return item.nom;
   }
 }

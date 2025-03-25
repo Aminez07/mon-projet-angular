@@ -4,15 +4,47 @@
     <h2>{{ taskData.nom }}</h2>
     <p><strong>📅 Date d'échéance :</strong> {{ taskData.dateEcheance }}</p>
     <p><strong>📁 Projet :</strong> {{ taskData.projet }}</p>
-    <p class="description"><strong>ℹ️ Description :</strong> {{ taskData.description || 'Aucune description.' }}</p>
+    <p class="description">
+      <strong>ℹ️ Description :</strong> {{ taskData.description || 'Aucune description.' }}
+    </p>
   </div>
 
   <!-- Mise à jour du statut -->
   <div class="status-update">
     <p><strong>🔄 Mettre à jour le statut :</strong></p>
-    <button [class.active]="taskData.statut === 'pas commencé'" (click)="updateStatus('pas commencé')">Pas commencé</button>
-    <button [class.active]="taskData.statut === 'en cours'" (click)="updateStatus('en cours')">En cours</button>
-    <button [class.active]="taskData.statut === 'terminé'" (click)="updateStatus('terminé')">Terminé</button>
+    <div class="status-buttons">
+      <button
+        [class.active]="taskData.statut === 'pas commencé'"
+        (click)="updateStatus('pas commencé')"
+      >
+        Pas commencé
+      </button>
+      <button
+        [class.active]="taskData.statut === 'en cours'"
+        (click)="updateStatus('en cours')"
+      >
+        En cours
+      </button>
+      <button
+        [class.active]="taskData.statut === 'terminé'"
+        (click)="updateStatus('terminé')"
+      >
+        Terminé
+      </button>
+    </div>
+    <p class="current-status">
+      ✅ Statut actuel : <strong>{{ taskData.statut || 'Indéfini' }}</strong>
+    </p>
+  </div>
+
+  <!-- Historique des commentaires -->
+  <div class="comment-history" *ngIf="taskData.commentaires?.length > 0">
+    <p><strong>🗒️ Commentaires précédents :</strong></p>
+    <ul>
+      <li *ngFor="let com of taskData.commentaires">
+        🗨️ {{ com }}
+      </li>
+    </ul>
   </div>
 
   <!-- Ajout d'un commentaire -->
@@ -26,7 +58,9 @@
   <div class="file-upload">
     <p><strong>📎 Ajouter une pièce jointe :</strong></p>
     <input type="file" (change)="handleFileInput($event)" />
-    <p *ngIf="file"><em>✅ Fichier sélectionné :</em> {{ file.name }}</p>
+    <p *ngIf="file">
+      <em>✅ Fichier sélectionné :</em> {{ file.name }}
+    </p>
   </div>
 
   <!-- Boutons -->
@@ -38,7 +72,7 @@
 </div>
 
 <!-- Message si aucune tâche -->
-<div *ngIf="!taskData">
+<div *ngIf="!taskData" class="no-task">
   <p>❌ Aucune tâche trouvée pour ce nom.</p>
   <button (click)="goToDashboard()">Retour</button>
 </div>
