@@ -2,7 +2,7 @@
   <!-- Barre latérale : Profil + actions -->
   <div class="sidebar">
     <div class="profile">
-      <img src="assets/avatar.png" alt="Avatar Gestion" class="avatar" />
+      <img src="./assets/gestionnaire.jpg" alt="Avatar Gestion" class="avatar" />
       <p class="username">{{ gestionnaireData?.nom || 'Nom d\'utilisateur' }}</p>
       <span class="role">Gestionnaire</span>
       <button class="profile-button" (click)="goToProfil()">Gérer le Profil</button>
@@ -11,7 +11,7 @@
     <div class="project-actions">
       <h3>Gérer les projets</h3>
       <button class="action-button" (click)="goToCreationProjet()">Créer un nouveau projet</button>
-      <button class="action-button" disabled>Suivre la progression</button>
+      <button class="action-button" (click)="goToSuiviProgression()">Suivre la progression</button>
       <button class="action-button" disabled>Inviter des membres</button>
     </div>
   </div>

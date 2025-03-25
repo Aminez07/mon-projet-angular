@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common'; // Pour *ngIf, *ngFor
 })
 export class DashboardGestionnaireComponent implements OnInit {
   gestionnaireData: any = null;
-  projets: any[] = []; // ✅ Toujours initialiser comme tableau vide
+  projets: any[] = [];
 
   constructor(private router: Router) {}
 
@@ -24,15 +24,23 @@ export class DashboardGestionnaireComponent implements OnInit {
         const gestionnaires = JSON.parse(data);
         this.gestionnaireData = gestionnaires.find((g: any) => g.id === userId);
 
-        if (this.gestionnaireData && Array.isArray(this.gestionnaireData.projets)) {
-          // ✅ Génère le statut dynamiquement pour chaque projet
-          this.projets = this.gestionnaireData.projets.map((projet: any) => ({
-            ...projet,
-            statut: this.calculerStatutProjet(projet)
-          }));
+        if (this.gestionnaireData) {
+          // ✅ Si l'avatar n'existe pas, on met une image par défaut
+          if (!this.gestionnaireData.avatar) {
+            this.gestionnaireData.avatar = 'assets/avatar-par-defaut.jpg';
+          }
+
+          if (Array.isArray(this.gestionnaireData.projets)) {
+            this.projets = this.gestionnaireData.projets.map((projet: any) => ({
+              ...projet,
+              statut: this.calculerStatutProjet(projet)
+            }));
+          } else {
+            this.projets = [];
+            console.warn('⚠️ Aucun projet trouvé pour ce gestionnaire.');
+          }
         } else {
-          this.projets = [];
-          console.warn('⚠️ Aucun projet trouvé ou gestionnaire vide.');
+          console.warn('⚠️ Gestionnaire non trouvé.');
         }
       } catch (e) {
         console.error('❌ Erreur lors du parsing de gestionnaires.json :', e);
@@ -59,6 +67,9 @@ export class DashboardGestionnaireComponent implements OnInit {
 
   goToCreationProjet(): void {
     this.router.navigate(['/dashboard/gestionnaire/creation-projet']);
+  }
+  goToSuiviProgression(): void {
+    this.router.navigate(['/dashboard/gestionnaire/suivi']);
   }
 
   goToDetailProjet(projectName: string): void {

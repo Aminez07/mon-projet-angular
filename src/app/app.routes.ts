@@ -13,7 +13,7 @@ import { ModificationTacheComponent } from './components/modification-tache/modi
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { ProfileComponent } from './components/profile/profile.component'; // ✅ Décommenté pour le profil
 import { AuthGuard } from './guards/auth.guard'; // ✅ Import du Guard
-
+import  { SuiviProgressionComponent } from './components/suivi-progression/suivi-progression.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
@@ -47,7 +47,7 @@ export const routes: Routes = [
   // ✅ Autres routes protégées
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
   { path: 'profil', component: ProfileComponent, canActivate: [AuthGuard] },
-
+  { path: 'dashboard/gestionnaire/suivi', component: SuiviProgressionComponent },
   // ✅ Redirection pour toute route inconnue
   { path: '**', redirectTo: 'auth' }
 ];
