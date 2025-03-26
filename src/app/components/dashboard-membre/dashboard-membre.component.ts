@@ -24,6 +24,11 @@ export class DashboardMembreComponent implements OnInit {
         const membres = JSON.parse(data);
         this.membreData = membres.find((m: any) => m.id === userId);
 
+        // ✅ Ajouter avatar par défaut si manquant
+        if (this.membreData && !this.membreData.avatar) {
+          this.membreData.avatar = 'assets/avatar-par-defaut.jpg';
+        }
+
         if (this.membreData && Array.isArray(this.membreData.projets)) {
           this.projets = this.membreData.projets;
         } else {

@@ -2,7 +2,7 @@
   <!-- Sidebar avec profil utilisateur -->
   <div class="sidebar">
     <div class="profile">
-      <img src="assets/avatar.png" alt="Avatar Membre" class="avatar" />
+      <img [src]="membreData?.avatar || 'assets/avatar-par-defaut.jpg'" alt="Avatar Membre" class="avatar" />
       <p class="username">{{ membreData?.nom || 'Utilisateur' }}</p>
       <span class="role">Membre</span>
       <button class="profile-button" (click)="goToProfil()">Gérer le Profil</button>
@@ -15,8 +15,7 @@
 
     <!-- Liste des projets -->
     <div class="projects-list" *ngIf="isArray(projets) && projets.length > 0; else aucunProjet">
-
-    <div
+      <div
         class="project-card"
         *ngFor="let projet of projets; trackBy: trackByNom"
         [ngClass]="getClassForStatut(getStatutProjetPourMembre(projet.taches || []))"
@@ -31,12 +30,11 @@
           </span>
         </p>
 
-      <p class="task-count">
-        Nombre de tâches : {{ isArray(projet.taches) ? projet.taches.length : 0 }}
-      </p>
+        <p class="task-count">
+          Nombre de tâches : {{ isArray(projet.taches) ? projet.taches.length : 0 }}
+        </p>
 
-
-      <button class="detail-button" (click)="goToDetailProjet(projet.nom)">Voir Détails</button>
+        <button class="detail-button" (click)="goToDetailProjet(projet.nom)">Voir Détails</button>
       </div>
     </div>
 

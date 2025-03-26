@@ -3,6 +3,7 @@
     "id": "g1",
     "nom": "Gestionnaire Démo",
     "email": "gestionnaire@example.com",
+    "avatar": "assets/avatars/gestionnaire.jpg",
     "projets": [
       {
         "nom": "Projet Alpha",
