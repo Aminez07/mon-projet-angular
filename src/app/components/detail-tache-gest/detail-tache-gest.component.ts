@@ -38,7 +38,6 @@ export class DetailTacheGestComponent {
 
     const gestionnaires = JSON.parse(data);
     this.gestionnaireData = gestionnaires.find((g: any) => g.id === this.gestionnaireId);
-
     if (!this.gestionnaireData) return;
 
     for (let projet of this.gestionnaireData.projets) {
@@ -61,7 +60,9 @@ export class DetailTacheGestComponent {
 
   addComment() {
     if (this.comments.trim()) {
-      this.tache.commentaire = this.comments;
+      if (!this.tache.commentaires) this.tache.commentaires = [];
+      this.tache.commentaires.push(this.comments.trim());
+      this.comments = '';
       this.enregistrer();
       alert('💬 Commentaire ajouté avec succès !');
     } else {
@@ -85,12 +86,30 @@ export class DetailTacheGestComponent {
 
   saveTask() {
     if (this.tache) {
+      // Met à jour les propriétés de la tâche
       this.tache.statut = this.status;
       this.tache.dateEcheance = this.dueDate;
       this.tache.assigneA = this.assignedTo;
       this.tache.description = this.description;
+
+      // Vérifie si commentaire non vide
+      if (this.comments.trim()) {
+        if (!this.tache.commentaires) this.tache.commentaires = [];
+        this.tache.commentaires.push(this.comments.trim());
+        this.comments = '';
+      }
+
+      // Vérifie si un fichier a été ajouté
+      if (this.file) {
+        this.tache.fichier = this.file.name;
+      }
+
+      // Enregistre les changements dans le localStorage
       this.enregistrer();
-      alert('✅ Tâche mise à jour avec succès.');
+
+      alert('✅ Tâche mise à jour et sauvegardée avec succès.');
+    } else {
+      alert('❌ Erreur : aucune tâche à mettre à jour.');
     }
   }
 

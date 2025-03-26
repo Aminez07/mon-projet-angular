@@ -1,22 +1,20 @@
-<div class="task-modification-container">
-  <!-- En-tête avec logo et retour au tableau de bord -->
+<div class="task-modification-container" *ngIf="tache">
+  <!-- En-tête -->
   <div class="header">
     <img src="assets/logo.png" alt="ProjectCollab Logo" class="logo" />
-    <button class="btn-back" (click)="cancel()">Tableau de Bord</button>
+    <button class="btn-back" (click)="cancel()">⬅ Retour au projet</button>
   </div>
 
-  <!-- Formulaire de modification de tâche -->
+  <!-- Formulaire -->
   <div class="task-form">
     <h2>Modifier la tâche : {{ taskTitle }}</h2>
 
-    <!-- Champs : Titre et Description -->
-    <label for="taskTitle">Titre de la tâche</label>
-    <input type="text" id="taskTitle" [(ngModel)]="taskTitle" placeholder="Modifier le titre" required />
+    <label for="taskTitle">Titre</label>
+    <input id="taskTitle" type="text" [(ngModel)]="taskTitle" required />
 
     <label for="taskDescription">Description</label>
-    <textarea id="taskDescription" [(ngModel)]="taskDescription" placeholder="Modifier la description"></textarea>
+    <textarea id="taskDescription" [(ngModel)]="taskDescription" rows="4"></textarea>
 
-    <!-- Sélection de l'état -->
     <label>État</label>
     <div class="status-selection">
       <label><input type="radio" name="status" value="En cours" [(ngModel)]="taskStatus" /> En cours</label>
@@ -24,10 +22,13 @@
       <label><input type="radio" name="status" value="En attente" [(ngModel)]="taskStatus" /> En attente</label>
     </div>
 
-    <!-- Boutons -->
     <div class="buttons">
-      <button class="save-task-btn" (click)="saveTask()">Enregistrer</button>
-      <button class="cancel-btn" (click)="cancel()">Annuler</button>
+      <button class="save-task-btn" (click)="saveTask()">💾 Enregistrer</button>
+      <button class="cancel-btn" (click)="cancel()">❌ Annuler</button>
     </div>
   </div>
 </div>
+
+<ng-template [ngIf]="!tache">
+  <p style="text-align: center; color: red; margin-top: 2rem;">❌ Tâche introuvable.</p>
+</ng-template>

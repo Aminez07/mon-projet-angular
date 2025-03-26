@@ -6,32 +6,26 @@
     "avatar": "assets/avatars/membre.jpg",
     "projets": [
       {
-        "nom": "Projet Alpha",
-        "description": "Développement de l’interface utilisateur pour le module principal.",
+        "nom": "Projet Test - UI",
+        "description": "Prototype d’interface pour la version alpha.",
         "taches": [
           {
-            "nom": "Compléter le front-end",
+            "nom": "Créer le dashboard",
             "statut": "en cours",
             "priorite": "haute",
-            "dateEcheance": "2025-04-01"
+            "dateEcheance": "2025-04-05"
           },
           {
-            "nom": "Rédiger la documentation",
+            "nom": "Ajouter les composants Angular",
             "statut": "pas commencé",
             "priorite": "moyenne",
-            "dateEcheance": "2025-04-05"
-          }
-        ]
-      },
-      {
-        "nom": "Projet Beta",
-        "description": "Tests finaux et livraison du projet.",
-        "taches": [
+            "dateEcheance": "2025-04-10"
+          },
           {
-            "nom": "Valider les tests",
+            "nom": "Effectuer les tests",
             "statut": "terminé",
             "priorite": "basse",
-            "dateEcheance": "2025-03-30"
+            "dateEcheance": "2025-04-01"
           }
         ]
       }

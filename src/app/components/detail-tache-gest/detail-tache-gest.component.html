@@ -21,19 +21,29 @@
     <button [class.active]="status === 'Terminé'" (click)="updateStatus('Terminé')">✅ Terminé</button>
   </div>
 
-  <!-- Commentaire -->
+  <!-- Commentaires -->
   <div class="comments-section">
-    <p><strong>Ajouter un commentaire :</strong></p>
+    <p><strong>💬 Ajouter un commentaire :</strong></p>
     <textarea [(ngModel)]="comments" placeholder="Ajoutez votre commentaire ici..."></textarea>
-    <button (click)="addComment()">💬 Ajouter un commentaire</button>
+    <button class="comment-button" (click)="addComment()">💬 Ajouter un commentaire</button>
+
+    <!-- Liste des commentaires existants -->
+    <div class="comment-list" *ngIf="tache.commentaires?.length > 0">
+      <p><strong>🗂 Commentaires existants :</strong></p>
+      <ul>
+        <li *ngFor="let com of tache.commentaires">
+          🗨️ {{ com }}
+        </li>
+      </ul>
+    </div>
   </div>
 
   <!-- Pièce jointe -->
   <div class="file-upload">
-    <p><strong>Ajouter une pièce jointe :</strong></p>
+    <p><strong>📎 Ajouter une pièce jointe :</strong></p>
     <input type="file" (change)="handleFileInput($event)" />
     <div *ngIf="tache.fichier">
-      📎 Fichier joint : <strong>{{ tache.fichier }}</strong>
+      📎 <strong>Fichier joint :</strong> {{ tache.fichier }}
     </div>
   </div>
 
@@ -45,6 +55,7 @@
   </div>
 </div>
 
+<!-- Tâche introuvable -->
 <ng-template [ngIf]="!tache">
   <p style="color: red; text-align: center; margin-top: 2rem;">
     ❌ Tâche introuvable ou non chargée.
