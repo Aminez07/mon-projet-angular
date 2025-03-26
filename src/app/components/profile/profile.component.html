@@ -1,18 +1,32 @@
-<div class="profil-container" *ngIf="user">
-  <h2>Profil Utilisateur</h2>
-  <p><strong>Nom :</strong> {{ user.nom }}</p>
-  <p><strong>Email :</strong> {{ user.email }}</p>
-  <p><strong>Rôle :</strong> {{ user.role | titlecase }}</p>
+<div class="profile-page">
+  <div class="profile-card">
+    <img [src]="user?.avatar || 'assets/avatar-par-defaut.jpg'" class="profile-avatar" alt="Avatar" />
 
-  <div *ngIf="user.role === 'membre'">
-    <p><strong>ID Membre :</strong> {{ user.id }}</p>
-    <p>Accès limité aux tâches assignées</p>
+    <h2 class="profile-name">{{ user?.nom || 'Utilisateur' }}</h2>
+    <p class="profile-email">{{ user?.email }}</p>
+
+    <form class="profile-form">
+      <div class="input-group">
+        <label>Nom d’utilisateur</label>
+        <input [(ngModel)]="user.nom" name="nom" type="text" />
+      </div>
+
+      <div class="input-group">
+        <label>Mot de passe</label>
+        <input [(ngModel)]="user.password" name="password" type="password" />
+      </div>
+
+      <div class="input-group">
+        <label>Numéro de téléphone</label>
+        <input [(ngModel)]="user.telephone" name="telephone" type="text" />
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="save-btn" (click)="saveChanges()">Enregistrer les modifications</button>
+        <button type="button" class="cancel-btn" (click)="cancel()">Annuler</button>
+      </div>
+    </form>
   </div>
 
-  <div *ngIf="user.role === 'gestionnaire'">
-    <p><strong>ID Gestionnaire :</strong> {{ user.id }}</p>
-    <p>Accès complet à tous les projets</p>
-  </div>
-
-  <button (click)="logout()">Se déconnecter</button>
+  <button class="logout-btn" (click)="logout()">Se Déconnecter</button>
 </div>

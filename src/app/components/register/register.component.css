@@ -1,44 +1,67 @@
-/* Conteneur principal */
-.register-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  text-align: center;
-  background-color: #f9f9f9;
-  padding: 20px;
+/* ✅ Masquer le header global uniquement sur cette page */
+::ng-deep app-header {
+  display: none !important;
 }
 
-/* Logo et titre */
-.header-container {
-  margin-bottom: 20px;
+/* Page */
+.register-page {
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.register-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fefde6;
+  padding: 16px 30px;
+  border-bottom: 1px solid #ddd;
 }
 
 .logo {
-  max-width: 80px;
-  margin-bottom: 10px;
+  height: 40px;
+}
+
+.login-button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+/* Formulaire */
+.form-container {
+  max-width: 400px;
+  margin: 40px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 .title {
   font-size: 24px;
   font-weight: bold;
   color: #333;
+  margin-bottom: 6px;
 }
 
 .subtitle {
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
-}
-
-/* Formulaire */
-.form-container {
-  width: 100%;
-  max-width: 400px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .register-form {
@@ -48,51 +71,36 @@
 }
 
 .input-group {
-  display: flex;
-  flex-direction: column;
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 label {
   font-weight: bold;
-  margin-bottom: 5px;
+  font-size: 14px;
+  margin-bottom: 6px;
 }
 
 input, select {
-  width: 100%;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 6px;
   border: 1px solid #ccc;
+  font-size: 15px;
+  width: 100%;
 }
 
-/* Bouton S'inscrire */
+/* Bouton Inscription */
 .register-button {
-  width: 100%;
   background-color: #28a745;
   color: white;
   font-weight: bold;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 .register-button:hover {
   background-color: #218838;
-}
-
-/* Lien Se connecter */
-.login-link {
-  margin-top: 10px;
-}
-
-.login-link a {
-  color: #007bff;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.login-link a:hover {
-  color: #0056b3;
 }

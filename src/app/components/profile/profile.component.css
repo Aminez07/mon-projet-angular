@@ -1,50 +1,103 @@
-.profil-container {
-  max-width: 500px;
-  margin: 40px auto;
+.profile-page {
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.profile-card {
+  background-color: white;
   padding: 30px;
   border-radius: 12px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.profil-container h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  color: #333;
-}
-
-.profil-container p {
-  margin: 10px 0;
-  font-size: 16px;
-  color: #444;
-}
-
-strong {
-  color: #222;
-}
-
-button {
-  margin-top: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
   width: 100%;
-  padding: 10px 15px;
-  border: none;
-  background-color: #d9534f;
-  color: white;
+  text-align: center;
+}
+
+.profile-avatar {
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-name {
+  font-size: 20px;
   font-weight: bold;
-  font-size: 16px;
+  margin: 5px 0;
+}
+
+.profile-email {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.profile-form {
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.save-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 16px;
+  font-weight: bold;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #c9302c;
+.save-btn:hover {
+  background-color: #218838;
 }
 
-/* Optionnel : Différencier les rôles */
-div[ng-reflect-ng-if="membre"] p,
-div[ng-reflect-ng-if="gestionnaire"] p {
-  font-style: italic;
-  color: #666;
+.cancel-btn {
+  background-color: #e0e0e0;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout-btn {
+  margin-top: 30px;
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
 }

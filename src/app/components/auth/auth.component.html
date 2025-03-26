@@ -1,6 +1,9 @@
-<div class="auth-container">
-  <!-- Logo en haut à gauche -->
-
+<div class="auth-page">
+  <!-- Header personnalisé -->
+  <div class="auth-header">
+    <img src="assets/logo.jpeg" alt="Logo ProjectCollab" class="logo" />
+    <button class="register-button" (click)="onRegister()">Créer un compte</button>
+  </div>
 
   <!-- Formulaire de connexion -->
   <div class="form-container">
@@ -19,12 +22,6 @@
       </div>
 
       <button class="login-button" type="submit">Connexion</button>
-
     </form>
-
-    <!-- Lien pour créer un compte -->
-    <div class="register-link">
-      <a (click)="onRegister()">Créer un compte</a>
-    </div>
   </div>
 </div>

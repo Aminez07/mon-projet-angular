@@ -111,7 +111,7 @@ export class DetailTacheMembreComponent implements OnInit {
   }
 
   goToDashboard() {
-    this.router.navigate(['/dashboard/membre']);
+    this.router.navigate(['/dashboard/membre/detail-projet']);
   }
 
   logout() {

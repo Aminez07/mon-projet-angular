@@ -1,13 +1,15 @@
-<div class="register-container">
-  <!-- Logo et titre -->
-  <div class="header-container">
-    <img src="assets/logo.png" alt="ProjectCollab Logo" class="logo" />
-    <h1 class="title">Créer un compte</h1>
-    <p class="subtitle">Remplissez le formulaire pour vous inscrire.</p>
+<div class="register-page">
+  <!-- ✅ Header personnalisé -->
+  <div class="register-header">
+    <img src="assets/logo.jpeg" alt="Logo ProjectCollab" class="logo" />
+    <button class="login-button" (click)="goToLogin()">Se connecter</button>
   </div>
 
-  <!-- Formulaire d'inscription -->
+  <!-- ✅ Formulaire d'inscription -->
   <div class="form-container">
+    <h1 class="title">Créer un compte</h1>
+    <p class="subtitle">Remplissez le formulaire pour vous inscrire.</p>
+
     <form (submit)="onSubmit()" class="register-form">
       <div class="input-group">
         <label for="fullname">Nom complet</label>
@@ -34,10 +36,5 @@
 
       <button type="submit" class="register-button">S'inscrire</button>
     </form>
-
-    <!-- Lien vers connexion -->
-    <div class="login-link">
-      <a (click)="goToLogin()">Déjà un compte ? Se connecter</a>
-    </div>
   </div>
 </div>
